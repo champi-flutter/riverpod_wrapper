@@ -116,6 +116,52 @@ final class LaunchSupportLinkServiceProvider
 String _$launchSupportLinkServiceHash() =>
     r'96b194e8e27269b3a935a99e22f202cdb90bed0f';
 
+@ProviderFor(clipboardService)
+const clipboardServiceProvider = ClipboardServiceProvider._();
+
+final class ClipboardServiceProvider
+    extends
+        $FunctionalProvider<
+          ClipboardService,
+          ClipboardService,
+          ClipboardService
+        >
+    with $Provider<ClipboardService> {
+  const ClipboardServiceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'clipboardServiceProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$clipboardServiceHash();
+
+  @$internal
+  @override
+  $ProviderElement<ClipboardService> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  ClipboardService create(Ref ref) {
+    return clipboardService(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ClipboardService value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ClipboardService>(value),
+    );
+  }
+}
+
+String _$clipboardServiceHash() => r'855a149a737ac513ce77d57579f76f99891b4dfa';
+
 /// 外部通信リポジトリ
 
 @ProviderFor(externalLaunchRepository)
@@ -272,3 +318,51 @@ final class MenuBarViewModelProvider
 }
 
 String _$menuBarViewModelHash() => r'0ec7ae395f9aee371f1f6867304f26609054dc08';
+
+@ProviderFor(clipboardViewModel)
+const clipboardViewModelProvider = ClipboardViewModelProvider._();
+
+final class ClipboardViewModelProvider
+    extends
+        $FunctionalProvider<
+          ClipboardViewModel,
+          ClipboardViewModel,
+          ClipboardViewModel
+        >
+    with $Provider<ClipboardViewModel> {
+  const ClipboardViewModelProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'clipboardViewModelProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$clipboardViewModelHash();
+
+  @$internal
+  @override
+  $ProviderElement<ClipboardViewModel> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ClipboardViewModel create(Ref ref) {
+    return clipboardViewModel(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ClipboardViewModel value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ClipboardViewModel>(value),
+    );
+  }
+}
+
+String _$clipboardViewModelHash() =>
+    r'aa360d3ced5105262e2effd41aa045083c928782';

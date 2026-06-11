@@ -1,5 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:riverpod_wrapper/src/clipboard/use_case/clipboard_service.dart';
+import 'package:riverpod_wrapper/src/clipboard/view_model/clipboard_view_model.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/event_notifier.dart';
 import 'package:riverpod_wrapper/src/notification/view_model/notification_view_model.dart';
 import 'package:riverpod_wrapper/src/scaffold_menu_bar/gateway/external_launch_repository_impl.dart';
@@ -23,6 +25,9 @@ EventNotifier eventNotifier(Ref ref) => EventNotifier();
 LaunchSupportLinkService launchSupportLinkService(Ref ref) =>
     LaunchSupportLinkService(ref);
 
+@riverpod
+ClipboardService clipboardService(Ref ref) => ClipboardService(ref);
+
 // todo Gateway
 /// 外部通信リポジトリ
 @riverpod
@@ -38,3 +43,6 @@ NotificationViewModel notificationViewModel(Ref ref) =>
 /// サイドバーVM
 @riverpod
 MenuBarViewModel menuBarViewModel(Ref ref) => MenuBarViewModel(ref);
+
+@riverpod
+ClipboardViewModel clipboardViewModel(Ref ref) => ClipboardViewModel(ref);

@@ -24,6 +24,11 @@ export 'package:riverpod_wrapper/src/scaffold_menu_bar/view_model/menu_bar_view_
 export 'package:riverpod_wrapper/src/scaffold_menu_bar/view/scaffold_menu_bar.dart';
 export 'package:riverpod_wrapper/src/scaffold_menu_bar/view/report_dialog.dart';
 
+// 2026/06/11 追加: clipboard
+export 'package:riverpod_wrapper/src/clipboard/use_case/clipboard_service.dart';
+
+export 'package:riverpod_wrapper/src/clipboard/view_model/clipboard_view_model.dart';
+
 // todo 新しく追加した場合は、ここに追加（2026/06/06）＞＞
 
 

@@ -26,7 +26,7 @@ class EventNotifier {
   ///
   /// 2026/04/24 変更: インターフェースを変更
   void notifyInfo({
-    required NotificationFrom? layer,
+    NotificationFrom? layer,
     required NotificationType type,
     required String notification,
   }) {
