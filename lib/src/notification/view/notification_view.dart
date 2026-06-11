@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_wrapper/di/providers.dart';
-import 'package:riverpod_wrapper/notification/type_definition/notification_typedef.dart';
-import 'package:riverpod_wrapper/scaffold_menu_bar/view/report_dialog.dart';
+import 'package:riverpod_wrapper/src/di/providers.dart';
+import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
+import 'package:riverpod_wrapper/src/scaffold_menu_bar/view/report_dialog.dart';
 
 /// 2026/04/01 追加: Stateクラスから送られてきた何らかの通知を画面で表示するラッパークラス。
 class NotificationView extends HookConsumerWidget {

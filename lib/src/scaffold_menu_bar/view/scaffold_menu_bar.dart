@@ -2,8 +2,8 @@ import 'package:custom_widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_wrapper/di/providers.dart';
-import 'package:riverpod_wrapper/scaffold_menu_bar/view/report_dialog.dart';
+import 'package:riverpod_wrapper/src/di/providers.dart';
+import 'package:riverpod_wrapper/src/scaffold_menu_bar/view/report_dialog.dart';
 
 class ScaffoldMenuBar extends ConsumerWidget {
   const ScaffoldMenuBar({

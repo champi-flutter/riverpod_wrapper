@@ -4,9 +4,9 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_wrapper/di/providers.dart';
-import 'package:riverpod_wrapper/notification/type_definition/notification_typedef.dart';
-import 'package:riverpod_wrapper/notification/use_case/event_notifier.dart';
+import 'package:riverpod_wrapper/src/di/providers.dart';
+import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/event_notifier.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// 各クラスから何らかの通知を受け取り、画面に知らせるクラス

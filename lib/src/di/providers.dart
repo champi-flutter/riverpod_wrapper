@@ -1,11 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:riverpod_wrapper/notification/use_case/event_notifier.dart';
-import 'package:riverpod_wrapper/notification/view_model/notification_view_model.dart';
-import 'package:riverpod_wrapper/scaffold_menu_bar/gateway/external_launch_repository_impl.dart';
-import 'package:riverpod_wrapper/scaffold_menu_bar/use_case/launch_support_link_service.dart';
-import 'package:riverpod_wrapper/scaffold_menu_bar/use_case/repository_interface/external_launch_repository.dart';
-import 'package:riverpod_wrapper/scaffold_menu_bar/view_model/menu_bar_view_model.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/event_notifier.dart';
+import 'package:riverpod_wrapper/src/notification/view_model/notification_view_model.dart';
+import 'package:riverpod_wrapper/src/scaffold_menu_bar/gateway/external_launch_repository_impl.dart';
+import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/launch_support_link_service.dart';
+import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/repository_interface/external_launch_repository.dart';
+import 'package:riverpod_wrapper/src/scaffold_menu_bar/view_model/menu_bar_view_model.dart';
 
 part 'providers.g.dart';
 

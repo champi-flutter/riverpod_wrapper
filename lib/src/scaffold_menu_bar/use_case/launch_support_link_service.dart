@@ -1,8 +1,8 @@
 import 'package:custom_core_types/custom_core_types.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_wrapper/di/providers.dart';
-import 'package:riverpod_wrapper/scaffold_menu_bar/use_case/repository_interface/external_launch_repository.dart';
+import 'package:riverpod_wrapper/src/di/providers.dart';
+import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/repository_interface/external_launch_repository.dart';
 
 class LaunchSupportLinkService {
   /// 外部通信リポジトリクラスのインスタンス

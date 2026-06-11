@@ -1,10 +1,10 @@
 import 'package:custom_core_types/custom_core_types.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_wrapper/di/providers.dart';
-import 'package:riverpod_wrapper/loading/view_model/loading_view_model.dart';
-import 'package:riverpod_wrapper/notification/type_definition/notification_typedef.dart';
-import 'package:riverpod_wrapper/notification/use_case/event_notifier.dart';
-import 'package:riverpod_wrapper/scaffold_menu_bar/use_case/launch_support_link_service.dart';
+import 'package:riverpod_wrapper/src/di/providers.dart';
+import 'package:riverpod_wrapper/src/loading/view_model/loading_view_model.dart';
+import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/event_notifier.dart';
+import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/launch_support_link_service.dart';
 
 /// サイドメニューVMクラス
 ///

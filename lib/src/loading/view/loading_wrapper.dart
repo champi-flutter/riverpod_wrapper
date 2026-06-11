@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_wrapper/loading/view/loading_view.dart';
-import 'package:riverpod_wrapper/loading/view/reset_view.dart';
-import 'package:riverpod_wrapper/loading/view_model/loading_view_model.dart';
+import 'package:riverpod_wrapper/src/loading/view/loading_view.dart';
+import 'package:riverpod_wrapper/src/loading/view/reset_view.dart';
+import 'package:riverpod_wrapper/src/loading/view_model/loading_view_model.dart';
 
 class LoadingWrapper extends HookConsumerWidget {
   const LoadingWrapper({

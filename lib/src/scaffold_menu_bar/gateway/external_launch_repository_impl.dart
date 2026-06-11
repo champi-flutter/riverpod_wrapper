@@ -1,10 +1,10 @@
 import 'package:custom_core_types/custom_core_types.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_wrapper/di/providers.dart';
-import 'package:riverpod_wrapper/notification/type_definition/notification_typedef.dart';
-import 'package:riverpod_wrapper/notification/use_case/event_notifier.dart';
-import 'package:riverpod_wrapper/scaffold_menu_bar/use_case/repository_interface/external_launch_repository.dart';
+import 'package:riverpod_wrapper/src/di/providers.dart';
+import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/event_notifier.dart';
+import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/repository_interface/external_launch_repository.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;

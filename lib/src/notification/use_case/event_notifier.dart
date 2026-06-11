@@ -1,6 +1,6 @@
 
 import 'package:flutter/foundation.dart';
-import 'package:riverpod_wrapper/notification/type_definition/notification_typedef.dart';
+import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// 通知送信クラス
