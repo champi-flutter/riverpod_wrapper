@@ -160,7 +160,7 @@ final class ClipboardServiceProvider
   }
 }
 
-String _$clipboardServiceHash() => r'855a149a737ac513ce77d57579f76f99891b4dfa';
+String _$clipboardServiceHash() => r'88ba26e5832ecede983c9054b3e4ae654f8f5882';
 
 /// 外部通信リポジトリ
 

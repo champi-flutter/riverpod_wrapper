@@ -29,6 +29,9 @@ export 'package:riverpod_wrapper/src/clipboard/use_case/clipboard_service.dart';
 
 export 'package:riverpod_wrapper/src/clipboard/view_model/clipboard_view_model.dart';
 
+// 2026/06/12 追加: edit_saved_pop_scope （custom_widgets から移行）
+export 'package:riverpod_wrapper/src/edit_saved_pop_scope/view/edit_saved_pop_scope.dart';
+
+export 'package:riverpod_wrapper/src/edit_saved_pop_scope/view_controller/edit_saving_controller.dart';
+
 // todo 新しく追加した場合は、ここに追加（2026/06/06）＞＞
-
-
