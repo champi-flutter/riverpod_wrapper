@@ -1,30 +1,30 @@
 
 import 'package:custom_widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_wrapper/riverpod_wrapper.dart';
 
 /// 編集未保存確認クラス
 ///
 /// 対象の画面 Widget （[child]）に編集を加えた状態で pop する際に、保存されずに戻るのを
 /// ダイアログで確認して防ぐ。
-class EditSavedPopScope extends StatelessWidget {
+class EditSavedPopScope extends ConsumerWidget {
   const EditSavedPopScope({
     super.key,
     required this.child,
-    required this.isEdited,
-    required this.onDiscard,
+    this.actionOnDiscarded,
   });
 
   final Widget child;
 
-  /// この画面で編集作業を行ったかどうか（行ったのに保存せずに戻ってしまうのを防ぐ）
-  final bool isEdited;
-
-  /// 確認ダイアログで、「破棄」を選択した場合の処理
-  final VoidCallback onDiscard;
+  /// 確認ダイアログで、「破棄」を選択した場合の、追加の処理
+  final VoidCallback? actionOnDiscarded;
 
   // todo build
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // 現在表示している画面に、未保存の編集があるかどうか
+    final isEdited = ref.watch(editSavingControllerProvider);
     return SafeArea(
       child: PopScope(
         canPop: false,
@@ -35,10 +35,16 @@ class EditSavedPopScope extends StatelessWidget {
             // ダイアログで戻ることを確認
             final bool willPop = await _willDefinitelyPop(context);
             // 「破棄」を選択した場合
-            if (willPop && context.mounted) {
-              onDiscard();
-              // TextField 等にフォーカスを残さない
-              Navigator.of(context).popWithUnfocus();
+            if (willPop) {
+              ref.read(editSavingControllerProvider.notifier).onDiscarded();
+              // 追加の処理があれば
+              if(actionOnDiscarded != null) {
+                actionOnDiscarded!();
+              }
+              if(context.mounted) {
+                // TextField 等にフォーカスを残さない
+                Navigator.of(context).popWithUnfocus();
+              }
             }
           }
           // 何も編集しなかった場合は、普通に戻る
