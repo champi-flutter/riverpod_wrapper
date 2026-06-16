@@ -13,17 +13,23 @@ class EditSavingController extends _$EditSavingController{
 
   /// 編集時に [state] を `true` にする
   void onEdited (){
-    state = true;
+    if(!state) {
+      state = true;
+    }
   }
 
   /// 編集保存時に [state] を `false` にする
   void onSaved(){
-    state = false;
+    if(state) {
+      state = false;
+    }
   }
 
   /// 編集破棄時に [state] を `false` にする
   void onDiscarded(){
-    state = false;
+    if(state) {
+      state = false;
+    }
   }
 
 }
