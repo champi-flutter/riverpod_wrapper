@@ -33,7 +33,7 @@ class EditSavedPopScope extends ConsumerWidget {
           // 編集されていた場合は、ダイアログで確認を促す
           if (isEdited) {
             // ダイアログで戻ることを確認
-            final bool willPop = await _willDefinitelyPop(context);
+            final bool willPop = await confirmToDiscard(context);
             // 「破棄」を選択した場合
             if (willPop) {
               ref.read(editSavingControllerProvider.notifier).onDiscarded();
@@ -58,36 +58,36 @@ class EditSavedPopScope extends ConsumerWidget {
       ),
     );
   }
+}
 
-  /// 編集してが保存せずに戻ろうとしている時の確認メソッド
-  Future<bool> _willDefinitelyPop(BuildContext context) async {
-    bool _willPop = false;
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text("現在の編集を破棄しますか？"),
-          actions: [
-            // 編集を続ける（戻らない）
-            TextButton(
-              onPressed: () {
-                _willPop = false;
-                Navigator.of(context).pop();
-              },
-              child: Text("編集を続ける"),
-            ),
-            // 破棄（戻る）
-            TextButton(
-              onPressed: () {
-                _willPop = true;
-                Navigator.of(context).pop();
-              },
-              child: Text("破棄"),
-            ),
-          ],
-        );
-      },
-    );
-    return _willPop;
-  }
+/// 編集してが保存せずに戻ろうとしている時の確認メソッド
+Future<bool> confirmToDiscard(BuildContext context) async {
+  bool _willPop = false;
+  await showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: Text("現在の編集を破棄しますか？"),
+        actions: [
+          // 編集を続ける（戻らない）
+          TextButton(
+            onPressed: () {
+              _willPop = false;
+              Navigator.of(context).pop();
+            },
+            child: Text("編集を続ける"),
+          ),
+          // 破棄（戻る）
+          TextButton(
+            onPressed: () {
+              _willPop = true;
+              Navigator.of(context).pop();
+            },
+            child: Text("破棄"),
+          ),
+        ],
+      );
+    },
+  );
+  return _willPop;
 }
