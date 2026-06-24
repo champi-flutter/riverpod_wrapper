@@ -14,15 +14,25 @@ class LoadingViewModel extends _$LoadingViewModel {
   }
 
   /// [LoadingState.loadingProcess] を 1 増やす
-  void startLoading() {
+  void _startLoading() {
     state = state.copyWith(loadingProcess: state.loadingProcess +1);
     _print("ローディングが開始（loadingProcess: ${state.loadingProcess}）");
   }
 
   /// [LoadingState.loadingProcess] を 1 減らす
-  void finishLoading() {
+  void _finishLoading() {
     state = state.copyWith(loadingProcess: state.loadingProcess -1);
     _print("ローディングが終了（loadingProcess: ${state.loadingProcess}）");
+  }
+
+  /// ローディング処理
+  Future<void> loadAsync(Future<void> Function() action) async {
+    // ローディング開始
+    _startLoading();
+    // 処理本体
+    await action();
+    // ローディング終了
+    _finishLoading();
   }
 
   /// クラスごとの初期化完了フラグを設置するメソッド
@@ -60,6 +70,8 @@ class LoadingViewModel extends _$LoadingViewModel {
 }
 
 /// ローディング処理を扱う mixin
+///
+/// 記述の簡略化のため
 mixin LoadingHandler {
   /// [LoadingViewModel]を取得するための抽象メソッド
   LoadingViewModel get loadingVM;
@@ -67,11 +79,7 @@ mixin LoadingHandler {
   /// ローディング処理
   Future<void> loadAsync(Future<void> Function() action) async {
     // ローディング開始
-    loadingVM.startLoading();
-    // 処理本体
-    await action();
-    // ローディング終了
-    loadingVM.finishLoading();
+    await loadingVM.loadAsync(action);
   }
 }
 
