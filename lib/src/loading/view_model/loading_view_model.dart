@@ -26,13 +26,14 @@ class LoadingViewModel extends _$LoadingViewModel {
   }
 
   /// ローディング処理
-  Future<void> loadAsync(Future<void> Function() action) async {
+  Future<T?> loadAsync<T>(Future<T?> Function() action) async {
     // ローディング開始
     _startLoading();
     // 処理本体
-    await action();
+    final T? result = await action();
     // ローディング終了
     _finishLoading();
+    return result;
   }
 
   /// クラスごとの初期化完了フラグを設置するメソッド
@@ -77,9 +78,9 @@ mixin LoadingHandler {
   LoadingViewModel get loadingVM;
 
   /// ローディング処理
-  Future<void> loadAsync(Future<void> Function() action) async {
+  Future<T?> loadAsync<T>(Future<T?> Function() action) async {
     // ローディング開始
-    await loadingVM.loadAsync(action);
+    return await loadingVM.loadAsync(action);
   }
 }
 
