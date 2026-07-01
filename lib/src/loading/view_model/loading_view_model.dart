@@ -26,11 +26,11 @@ class LoadingViewModel extends _$LoadingViewModel {
   }
 
   /// ローディング処理
-  Future<T?> loadAsync<T>(Future<T?> Function() action) async {
+  Future<T> loadAsync<T>(Future<T> Function() action) async {
     // ローディング開始
     _startLoading();
     // 処理本体
-    final T? result = await action();
+    final T result = await action();
     // ローディング終了
     _finishLoading();
     return result;
@@ -78,7 +78,7 @@ mixin LoadingHandler {
   LoadingViewModel get loadingVM;
 
   /// ローディング処理
-  Future<T?> loadAsync<T>(Future<T?> Function() action) async {
+  Future<T> loadAsync<T>(Future<T> Function() action) async {
     // ローディング開始
     return await loadingVM.loadAsync(action);
   }
