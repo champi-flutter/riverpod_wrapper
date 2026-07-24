@@ -10,58 +10,59 @@ part of 'providers.dart';
 // ignore_for_file: type=lint, type=warning
 /// 通知送信クラス
 ///
-/// 生成される Provider のインスタンスの名前は、"Notifier" が削られて、`eventProvider`
-/// になる。
 
-@ProviderFor(eventNotifier)
-const eventProvider = EventNotifierProvider._();
+@ProviderFor(notificationUseCase)
+const notificationUseCaseProvider = NotificationUseCaseProvider._();
 
 /// 通知送信クラス
 ///
-/// 生成される Provider のインスタンスの名前は、"Notifier" が削られて、`eventProvider`
-/// になる。
 
-final class EventNotifierProvider
-    extends $FunctionalProvider<EventNotifier, EventNotifier, EventNotifier>
-    with $Provider<EventNotifier> {
+final class NotificationUseCaseProvider
+    extends
+        $FunctionalProvider<
+          NotificationUseCase,
+          NotificationUseCase,
+          NotificationUseCase
+        >
+    with $Provider<NotificationUseCase> {
   /// 通知送信クラス
   ///
-  /// 生成される Provider のインスタンスの名前は、"Notifier" が削られて、`eventProvider`
-  /// になる。
-  const EventNotifierProvider._()
+  const NotificationUseCaseProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'eventProvider',
+        name: r'notificationUseCaseProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$eventNotifierHash();
+  String debugGetCreateSourceHash() => _$notificationUseCaseHash();
 
   @$internal
   @override
-  $ProviderElement<EventNotifier> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<NotificationUseCase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  EventNotifier create(Ref ref) {
-    return eventNotifier(ref);
+  NotificationUseCase create(Ref ref) {
+    return notificationUseCase(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(EventNotifier value) {
+  Override overrideWithValue(NotificationUseCase value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<EventNotifier>(value),
+      providerOverride: $SyncValueProvider<NotificationUseCase>(value),
     );
   }
 }
 
-String _$eventNotifierHash() => r'19f967e82330db9703124bca54666d82bea8a963';
+String _$notificationUseCaseHash() =>
+    r'9d44df07d44d3fcdf67c10a6f3c9af5dc93d0af3';
 
 /// 外部通信サービスクラス
 
@@ -116,51 +117,51 @@ final class LaunchSupportLinkServiceProvider
 String _$launchSupportLinkServiceHash() =>
     r'96b194e8e27269b3a935a99e22f202cdb90bed0f';
 
-@ProviderFor(clipboardService)
-const clipboardServiceProvider = ClipboardServiceProvider._();
+@ProviderFor(clipboardUseCase)
+const clipboardUseCaseProvider = ClipboardUseCaseProvider._();
 
-final class ClipboardServiceProvider
+final class ClipboardUseCaseProvider
     extends
         $FunctionalProvider<
-          ClipboardService,
-          ClipboardService,
-          ClipboardService
+          ClipboardUseCase,
+          ClipboardUseCase,
+          ClipboardUseCase
         >
-    with $Provider<ClipboardService> {
-  const ClipboardServiceProvider._()
+    with $Provider<ClipboardUseCase> {
+  const ClipboardUseCaseProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'clipboardServiceProvider',
+        name: r'clipboardUseCaseProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$clipboardServiceHash();
+  String debugGetCreateSourceHash() => _$clipboardUseCaseHash();
 
   @$internal
   @override
-  $ProviderElement<ClipboardService> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<ClipboardUseCase> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  ClipboardService create(Ref ref) {
-    return clipboardService(ref);
+  ClipboardUseCase create(Ref ref) {
+    return clipboardUseCase(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ClipboardService value) {
+  Override overrideWithValue(ClipboardUseCase value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ClipboardService>(value),
+      providerOverride: $SyncValueProvider<ClipboardUseCase>(value),
     );
   }
 }
 
-String _$clipboardServiceHash() => r'88ba26e5832ecede983c9054b3e4ae654f8f5882';
+String _$clipboardUseCaseHash() => r'4356f895d2f9704ea3d3533b07e72f50f1579c4f';
 
 /// 外部通信リポジトリ
 
@@ -215,58 +216,111 @@ final class ExternalLaunchRepositoryProvider
 String _$externalLaunchRepositoryHash() =>
     r'162c928793ef884a21a89ce7fd5392028d06f5ee';
 
-/// 通知管理クラス
+/// プラットフォームの機能へのインターフェース
 
-@ProviderFor(notificationViewModel)
-const notificationViewModelProvider = NotificationViewModelProvider._();
+@ProviderFor(platformFeaturesGateway)
+const platformFeaturesGatewayProvider = PlatformFeaturesGatewayProvider._();
 
-/// 通知管理クラス
+/// プラットフォームの機能へのインターフェース
 
-final class NotificationViewModelProvider
+final class PlatformFeaturesGatewayProvider
     extends
         $FunctionalProvider<
-          NotificationViewModel,
-          NotificationViewModel,
-          NotificationViewModel
+          PlatformFeaturesGateway,
+          PlatformFeaturesGateway,
+          PlatformFeaturesGateway
         >
-    with $Provider<NotificationViewModel> {
-  /// 通知管理クラス
-  const NotificationViewModelProvider._()
+    with $Provider<PlatformFeaturesGateway> {
+  /// プラットフォームの機能へのインターフェース
+  const PlatformFeaturesGatewayProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'notificationViewModelProvider',
+        name: r'platformFeaturesGatewayProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$notificationViewModelHash();
+  String debugGetCreateSourceHash() => _$platformFeaturesGatewayHash();
 
   @$internal
   @override
-  $ProviderElement<NotificationViewModel> $createElement(
+  $ProviderElement<PlatformFeaturesGateway> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  NotificationViewModel create(Ref ref) {
-    return notificationViewModel(ref);
+  PlatformFeaturesGateway create(Ref ref) {
+    return platformFeaturesGateway(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(NotificationViewModel value) {
+  Override overrideWithValue(PlatformFeaturesGateway value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<NotificationViewModel>(value),
+      providerOverride: $SyncValueProvider<PlatformFeaturesGateway>(value),
     );
   }
 }
 
-String _$notificationViewModelHash() =>
-    r'bb0fd242ae8e01805655136e3fe092076636861f';
+String _$platformFeaturesGatewayHash() =>
+    r'e4648fe243b89a5d8bc653176ef17e57c9079e71';
+
+/// 通知管理クラス
+
+@ProviderFor(notificationPresenter)
+const notificationPresenterProvider = NotificationPresenterProvider._();
+
+/// 通知管理クラス
+
+final class NotificationPresenterProvider
+    extends
+        $FunctionalProvider<
+          NotificationPresenter,
+          NotificationPresenter,
+          NotificationPresenter
+        >
+    with $Provider<NotificationPresenter> {
+  /// 通知管理クラス
+  const NotificationPresenterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'notificationPresenterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$notificationPresenterHash();
+
+  @$internal
+  @override
+  $ProviderElement<NotificationPresenter> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  NotificationPresenter create(Ref ref) {
+    return notificationPresenter(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(NotificationPresenter value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<NotificationPresenter>(value),
+    );
+  }
+}
+
+String _$notificationPresenterHash() =>
+    r'3405f28f5516587251a59205c4be577ae996b5fc';
 
 /// サイドバーVM
 

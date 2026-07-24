@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_wrapper/src/di/providers.dart';
 import 'package:riverpod_wrapper/src/loading/view_model/loading_view_model.dart';
 import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
-import 'package:riverpod_wrapper/src/notification/use_case/event_notifier.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/notification_use_case.dart';
 import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/launch_support_link_service.dart';
 
 /// サイドメニューVMクラス
@@ -19,7 +19,7 @@ class MenuBarViewModel with LoadingHandler {
 
   // todo 依存先
   /// 通知送信先
-  EventNotifier get _readEventNotifier => _ref.read(eventProvider);
+  NotificationUseCase get _readEventNotifier => _ref.read(notificationUseCaseProvider);
 
   /// 外部通信サービスクラスのインスタンス
   ///

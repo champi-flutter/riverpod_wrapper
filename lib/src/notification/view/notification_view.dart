@@ -25,9 +25,9 @@ class NotificationView extends HookConsumerWidget {
     // 最初の画面描画後に購読
     useEffect(() {
       final usedContext = useContext();
-      final readNotificationVM = ref.read(notificationViewModelProvider);
+      final readNotificationPresenter = ref.read(notificationPresenterProvider);
       // 購読を開始
-      final subscription = readNotificationVM.notificationStream.listen((
+      final subscription = readNotificationPresenter.notificationStream.listen((
         Notified notifiedInfo,
       ) {
         WidgetsBinding.instance.addPostFrameCallback((_) {

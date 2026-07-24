@@ -84,7 +84,7 @@ mixin LoadingHandler {
   }
 }
 
-/// todo printメソッド [ローディング管理クラス]
+/// printメソッド [ローディング管理クラス]
 void _print(String s1, [String? s2, String? s3, String? s4, String? s5]) {
   if (kDebugMode) {
     print("");

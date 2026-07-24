@@ -42,7 +42,7 @@ final class EditSavingControllerProvider
 }
 
 String _$editSavingControllerHash() =>
-    r'4d3ce8f36fd8568c7ae43b5f41442d51bddc0a81';
+    r'02691ab856c52575326ec6f91cac2027e7538dc2';
 
 abstract class _$EditSavingController extends $Notifier<bool> {
   bool build();
