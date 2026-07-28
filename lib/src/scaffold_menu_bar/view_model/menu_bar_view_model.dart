@@ -1,6 +1,7 @@
 import 'package:custom_core_types/custom_core_types.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_wrapper/src/di/providers.dart';
+import 'package:riverpod_wrapper/src/loading/use_case/input_boundary/loading_use_case.dart';
 import 'package:riverpod_wrapper/src/loading/view_model/loading_view_model.dart';
 import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/notification_use_case.dart';
@@ -11,7 +12,7 @@ import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/launch_support_l
 /// 描画には関わらないので ChangeNotifier である必要はない。
 ///
 /// 2026/05/12 変更: [LoadingHandler] を mixin 。
-class MenuBarViewModel with LoadingHandler {
+class MenuBarViewModel {
   final Ref _ref;
 
   // todo コンストラクタ
@@ -19,7 +20,8 @@ class MenuBarViewModel with LoadingHandler {
 
   // todo 依存先
   /// 通知送信先
-  NotificationUseCase get _readEventNotifier => _ref.read(notificationUseCaseProvider);
+  NotificationUseCase get _readEventNotifier =>
+      _ref.read(notificationUseCaseProvider);
 
   /// 外部通信サービスクラスのインスタンス
   ///
@@ -28,10 +30,8 @@ class MenuBarViewModel with LoadingHandler {
       _ref.read(launchSupportLinkServiceProvider);
 
   // todo ローディング関連
-  /// 2026/05/12 追加: ローディング管理クラスのインスタンス
-  @override
-  LoadingViewModel get loadingVM =>
-      _ref.read(loadingViewModelProvider.notifier);
+  /// ローディングの呼び出し元
+  LoadingUseCase get loading => _ref.read(loadingUseCaseProvider);
 
   // todo 通知関連
   /// レポート送信完了通知メソッド
@@ -44,25 +44,23 @@ class MenuBarViewModel with LoadingHandler {
   }
 
   /// 利用規約タップメソッド
-  Future<void> onTermsTapped({required String termsUrl}) => loadAsync(() async {
-    await _readService.openUrl(strUrl: termsUrl);
-  });
+  Future<void> onTermsTapped({required String termsUrl}) =>
+      loading.loadAsync(() async {
+        await _readService.openUrl(strUrl: termsUrl);
+      });
 
   /// 利用規約タップメソッド
   Future<void> onPrivacyPolicyTapped({required String privacyPolicyUrl}) =>
-      loadAsync(() async {
+      loading.loadAsync(() async {
         await _readService.openUrl(strUrl: privacyPolicyUrl);
       });
 
   /// レポート送信メソッド
-  Future<void> reportIssues({
-    required String subject,
-    required String body,
-  })
+  Future<void> reportIssues({required String subject, required String body})
   // 折りたたみ用
   async {
     Result<void, Exception>? _result;
-    await loadAsync(() async {
+    await loading.loadAsync(() async {
       _result = await _readService.sendEmail(
         subject: subject,
         body: body,
@@ -84,7 +82,8 @@ class MenuBarViewModel with LoadingHandler {
   }
 
   /// ストア画面遷移メソッド
-  Future<void> onFeedback({required String storeUrl}) => loadAsync(()async{
-    await _readService.openUrl(strUrl: storeUrl);
-  });
+  Future<void> onFeedback({required String storeUrl}) =>
+      loading.loadAsync(() async {
+        await _readService.openUrl(strUrl: storeUrl);
+      });
 }

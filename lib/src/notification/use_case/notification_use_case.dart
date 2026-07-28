@@ -5,9 +5,9 @@ import 'package:rxdart/rxdart.dart';
 
 /// 通知機能管理クラス
 class NotificationUseCase {
-  final _eventController = BehaviorSubject<Notified>();
+  final _notificationController = BehaviorSubject<Notified>();
 
-  Stream<Notified> get eventStream => _eventController.stream;
+  Stream<Notified> get notificationStream => _notificationController.stream;
 
   /// 内部システムから通知を送信するメソッド
   ///
@@ -24,7 +24,7 @@ class NotificationUseCase {
       type: type,
       notification: notification,
     );
-    _eventController.add(notifiedInfo);
+    _notificationController.add(notifiedInfo);
     _print("通知リスナーが発火");
   }
 }

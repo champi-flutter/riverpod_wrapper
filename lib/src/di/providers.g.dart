@@ -64,6 +64,52 @@ final class NotificationUseCaseProvider
 String _$notificationUseCaseHash() =>
     r'9d44df07d44d3fcdf67c10a6f3c9af5dc93d0af3';
 
+/// ローディング
+
+@ProviderFor(loadingUseCase)
+const loadingUseCaseProvider = LoadingUseCaseProvider._();
+
+/// ローディング
+
+final class LoadingUseCaseProvider
+    extends $FunctionalProvider<LoadingUseCase, LoadingUseCase, LoadingUseCase>
+    with $Provider<LoadingUseCase> {
+  /// ローディング
+  const LoadingUseCaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'loadingUseCaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$loadingUseCaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<LoadingUseCase> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  LoadingUseCase create(Ref ref) {
+    return loadingUseCase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(LoadingUseCase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<LoadingUseCase>(value),
+    );
+  }
+}
+
+String _$loadingUseCaseHash() => r'99a2afb9cbad1341c90b5750bbc2b85e52a71170';
+
 /// 外部通信サービスクラス
 
 @ProviderFor(launchSupportLinkService)
@@ -321,6 +367,52 @@ final class NotificationPresenterProvider
 
 String _$notificationPresenterHash() =>
     r'3405f28f5516587251a59205c4be577ae996b5fc';
+
+@ProviderFor(loadingPresenter)
+const loadingPresenterProvider = LoadingPresenterProvider._();
+
+final class LoadingPresenterProvider
+    extends
+        $FunctionalProvider<
+          LoadingPresenter,
+          LoadingPresenter,
+          LoadingPresenter
+        >
+    with $Provider<LoadingPresenter> {
+  const LoadingPresenterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'loadingPresenterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$loadingPresenterHash();
+
+  @$internal
+  @override
+  $ProviderElement<LoadingPresenter> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  LoadingPresenter create(Ref ref) {
+    return loadingPresenter(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(LoadingPresenter value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<LoadingPresenter>(value),
+    );
+  }
+}
+
+String _$loadingPresenterHash() => r'881529afa682df9ebd13783af45be70e96dca94d';
 
 /// サイドバーVM
 

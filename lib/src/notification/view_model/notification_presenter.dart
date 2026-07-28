@@ -14,7 +14,7 @@ class NotificationPresenter {
   // todo コンストラクタ
   NotificationPresenter(this._ref){
     // 購読を開始
-    _subscription = _readUseCase.eventStream.listen((Notified event){
+    _subscription = _readUseCase.notificationStream.listen((Notified event){
       _notificationController.add(event);
     });
   }

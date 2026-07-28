@@ -8,15 +8,15 @@ part of 'loading_view_model.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// 2026/04/03 追加: ローディングを管理するクラス
+/// 2026/04/03 追加: ローディング状態を管理するクラス
 
 @ProviderFor(LoadingViewModel)
 const loadingViewModelProvider = LoadingViewModelProvider._();
 
-/// 2026/04/03 追加: ローディングを管理するクラス
+/// 2026/04/03 追加: ローディング状態を管理するクラス
 final class LoadingViewModelProvider
     extends $NotifierProvider<LoadingViewModel, LoadingState> {
-  /// 2026/04/03 追加: ローディングを管理するクラス
+  /// 2026/04/03 追加: ローディング状態を管理するクラス
   const LoadingViewModelProvider._()
     : super(
         from: null,
@@ -44,9 +44,9 @@ final class LoadingViewModelProvider
   }
 }
 
-String _$loadingViewModelHash() => r'aa511f1b35c0d83e8816ec224848532d5c5ed6f2';
+String _$loadingViewModelHash() => r'e055caa1d0146527adea1d2d23b9f5662a4b2747';
 
-/// 2026/04/03 追加: ローディングを管理するクラス
+/// 2026/04/03 追加: ローディング状態を管理するクラス
 
 abstract class _$LoadingViewModel extends $Notifier<LoadingState> {
   LoadingState build();

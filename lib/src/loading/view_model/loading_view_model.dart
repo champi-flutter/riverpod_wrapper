@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_wrapper/src/loading/entity/loading_state.dart';
+import 'package:riverpod_wrapper/src/loading/use_case/output_boundary/loading_presenter.dart';
 
 part 'loading_view_model.g.dart';
 
-/// 2026/04/03 追加: ローディングを管理するクラス
+/// 2026/04/03 追加: ローディング状態を管理するクラス
 @riverpod
-class LoadingViewModel extends _$LoadingViewModel {
+class LoadingViewModel extends _$LoadingViewModel implements LoadingPresenter{
 
   @override
   LoadingState build (){
@@ -14,27 +15,29 @@ class LoadingViewModel extends _$LoadingViewModel {
   }
 
   /// [LoadingState.loadingProcess] を 1 増やす
-  void _startLoading() {
+  @override
+  void startLoading() {
     state = state.copyWith(loadingProcess: state.loadingProcess +1);
     _print("ローディングが開始（loadingProcess: ${state.loadingProcess}）");
   }
 
   /// [LoadingState.loadingProcess] を 1 減らす
-  void _finishLoading() {
+  @override
+  void finishLoading() {
     state = state.copyWith(loadingProcess: state.loadingProcess -1);
     _print("ローディングが終了（loadingProcess: ${state.loadingProcess}）");
   }
 
-  /// ローディング処理
-  Future<T> loadAsync<T>(Future<T> Function() action) async {
-    // ローディング開始
-    _startLoading();
-    // 処理本体
-    final T result = await action();
-    // ローディング終了
-    _finishLoading();
-    return result;
-  }
+  // /// ローディング処理
+  // Future<T> loadAsync<T>(Future<T> Function() action) async {
+  //   // ローディング開始
+  //   _startLoading();
+  //   // 処理本体
+  //   final T result = await action();
+  //   // ローディング終了
+  //   _finishLoading();
+  //   return result;
+  // }
 
   /// クラスごとの初期化完了フラグを設置するメソッド
   void setIsReady({required Type classType}) {
@@ -70,19 +73,19 @@ class LoadingViewModel extends _$LoadingViewModel {
   }
 }
 
-/// ローディング処理を扱う mixin
-///
-/// 記述の簡略化のため
-mixin LoadingHandler {
-  /// [LoadingViewModel]を取得するための抽象メソッド
-  LoadingViewModel get loadingVM;
-
-  /// ローディング処理
-  Future<T> loadAsync<T>(Future<T> Function() action) async {
-    // ローディング開始
-    return await loadingVM.loadAsync(action);
-  }
-}
+// /// ローディング処理を扱う mixin
+// ///
+// /// 記述の簡略化のため
+// mixin LoadingHandler {
+//   /// [LoadingViewModel]を取得するための抽象メソッド
+//   LoadingViewModel get loadingVM;
+//
+//   /// ローディング処理
+//   Future<T> loadAsync<T>(Future<T> Function() action) async {
+//     // ローディング開始
+//     return await loadingVM.loadAsync(action);
+//   }
+// }
 
 /// printメソッド [ローディング管理クラス]
 void _print(String s1, [String? s2, String? s3, String? s4, String? s5]) {

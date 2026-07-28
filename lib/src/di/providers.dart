@@ -1,7 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:riverpod_wrapper/riverpod_wrapper.dart';
 import 'package:riverpod_wrapper/src/clipboard/use_case/clipboard_use_case.dart';
 import 'package:riverpod_wrapper/src/clipboard/view_model/clipboard_view_model.dart';
+import 'package:riverpod_wrapper/src/loading/use_case/input_boundary/loading_use_case.dart';
+import 'package:riverpod_wrapper/src/loading/use_case/interactor/loading_interactor.dart';
+import 'package:riverpod_wrapper/src/loading/use_case/output_boundary/loading_presenter.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/notification_use_case.dart';
 import 'package:riverpod_wrapper/src/notification/view_model/notification_presenter.dart';
 import 'package:riverpod_wrapper/src/platform_features/gateway/platform_features_gateway_impl.dart';
@@ -19,6 +23,10 @@ part 'providers.g.dart';
 ///
 @riverpod
 NotificationUseCase notificationUseCase(Ref ref) => NotificationUseCase();
+
+/// ローディング
+@riverpod
+LoadingUseCase loadingUseCase(Ref ref)=>LoadingInteractor(ref);
 
 /// 外部通信サービスクラス
 @riverpod
@@ -43,6 +51,9 @@ PlatformFeaturesGateway platformFeaturesGateway(Ref ref) => PlatformFeaturesGate
 @riverpod
 NotificationPresenter notificationPresenter(Ref ref) =>
     NotificationPresenter(ref);
+
+@riverpod
+LoadingPresenter loadingPresenter(Ref ref) => LoadingViewModel();
 
 /// サイドバーVM
 @riverpod
