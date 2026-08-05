@@ -8,8 +8,8 @@ import 'package:riverpod_wrapper/src/loading/use_case/interactor/loading_interac
 import 'package:riverpod_wrapper/src/loading/use_case/output_boundary/loading_presenter.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/notification_use_case.dart';
 import 'package:riverpod_wrapper/src/notification/view_model/notification_presenter.dart';
-import 'package:riverpod_wrapper/src/platform_features/gateway/platform_features_gateway_impl.dart';
-import 'package:riverpod_wrapper/src/platform_features/use_case/gateway_interface/platform_features_gateway.dart';
+import 'package:riverpod_wrapper/src/platform_features/gateway/platform_features_driver_impl.dart';
+import 'package:riverpod_wrapper/src/platform_features/use_case/driver_interface/platform_features_driver.dart';
 import 'package:riverpod_wrapper/src/scaffold_menu_bar/gateway/external_launch_repository_impl.dart';
 import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/launch_support_link_service.dart';
 import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/repository_interface/external_launch_repository.dart';
@@ -44,7 +44,7 @@ ExternalLaunchRepository externalLaunchRepository(Ref ref) =>
 
 /// プラットフォームの機能へのインターフェース
 @riverpod
-PlatformFeaturesGateway platformFeaturesGateway(Ref ref) => PlatformFeaturesGatewayImpl();
+PlatformFeaturesDriver platformFeaturesDriver(Ref ref) => PlatformFeaturesDriverImpl();
 
 // todo ViewModel（状態なし）
 /// 通知管理クラス

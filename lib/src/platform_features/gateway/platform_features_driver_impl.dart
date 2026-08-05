@@ -1,9 +1,9 @@
 
 import 'package:flutter/services.dart';
-import 'package:riverpod_wrapper/src/platform_features/use_case/gateway_interface/platform_features_gateway.dart';
+import 'package:riverpod_wrapper/src/platform_features/use_case/driver_interface/platform_features_driver.dart';
 
 /// プラットフォームの機能を呼び出す実装クラス
-class PlatformFeaturesGatewayImpl implements PlatformFeaturesGateway{
+class PlatformFeaturesDriverImpl implements PlatformFeaturesDriver{
   // todo クリップボード
   /// クリップボードに文字列をセットする
   @override

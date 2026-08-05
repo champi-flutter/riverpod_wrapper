@@ -1,7 +1,7 @@
 import 'package:custom_core_types/custom_core_types.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
-import 'package:riverpod_wrapper/src/platform_features/use_case/gateway_interface/platform_features_gateway.dart';
+import 'package:riverpod_wrapper/src/platform_features/use_case/driver_interface/platform_features_driver.dart';
 
 class ClipboardUseCase {
   ClipboardUseCase(this._ref);
@@ -13,8 +13,8 @@ class ClipboardUseCase {
   NotificationUseCase get _readNotificationUseCase => _ref.read(notificationUseCaseProvider);
 
   /// プラットフォームの機能へのインターフェース
-  PlatformFeaturesGateway get _readPlatformFeaturesGateway =>
-      _ref.read(platformFeaturesGatewayProvider);
+  PlatformFeaturesDriver get _readPlatformFeaturesGateway =>
+      _ref.read(platformFeaturesDriverProvider);
 
   /// 2026/05/13 追加: エラーハンドリング
   void _notifyError(String error) {

@@ -264,56 +264,56 @@ String _$externalLaunchRepositoryHash() =>
 
 /// プラットフォームの機能へのインターフェース
 
-@ProviderFor(platformFeaturesGateway)
-const platformFeaturesGatewayProvider = PlatformFeaturesGatewayProvider._();
+@ProviderFor(platformFeaturesDriver)
+const platformFeaturesDriverProvider = PlatformFeaturesDriverProvider._();
 
 /// プラットフォームの機能へのインターフェース
 
-final class PlatformFeaturesGatewayProvider
+final class PlatformFeaturesDriverProvider
     extends
         $FunctionalProvider<
-          PlatformFeaturesGateway,
-          PlatformFeaturesGateway,
-          PlatformFeaturesGateway
+          PlatformFeaturesDriver,
+          PlatformFeaturesDriver,
+          PlatformFeaturesDriver
         >
-    with $Provider<PlatformFeaturesGateway> {
+    with $Provider<PlatformFeaturesDriver> {
   /// プラットフォームの機能へのインターフェース
-  const PlatformFeaturesGatewayProvider._()
+  const PlatformFeaturesDriverProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'platformFeaturesGatewayProvider',
+        name: r'platformFeaturesDriverProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$platformFeaturesGatewayHash();
+  String debugGetCreateSourceHash() => _$platformFeaturesDriverHash();
 
   @$internal
   @override
-  $ProviderElement<PlatformFeaturesGateway> $createElement(
+  $ProviderElement<PlatformFeaturesDriver> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  PlatformFeaturesGateway create(Ref ref) {
-    return platformFeaturesGateway(ref);
+  PlatformFeaturesDriver create(Ref ref) {
+    return platformFeaturesDriver(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(PlatformFeaturesGateway value) {
+  Override overrideWithValue(PlatformFeaturesDriver value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<PlatformFeaturesGateway>(value),
+      providerOverride: $SyncValueProvider<PlatformFeaturesDriver>(value),
     );
   }
 }
 
-String _$platformFeaturesGatewayHash() =>
-    r'e4648fe243b89a5d8bc653176ef17e57c9079e71';
+String _$platformFeaturesDriverHash() =>
+    r'0ec26b89915a0a16e2f3eb03d7133e4d234e7f9b';
 
 /// 通知管理クラス
 

@@ -34,4 +34,7 @@ export 'package:riverpod_wrapper/src/edit_saved_pop_scope/view/edit_saved_pop_sc
 
 export 'package:riverpod_wrapper/src/edit_saved_pop_scope/view_controller/edit_saving_controller.dart';
 
+// 2026/08/05 追加
+export 'package:riverpod_wrapper/src/key_holder/key_holder_provider.dart';
+
 // todo 新しく追加した場合は、ここに追加（2026/06/06）＞＞

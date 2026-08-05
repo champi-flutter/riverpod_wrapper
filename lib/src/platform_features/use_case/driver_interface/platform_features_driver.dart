@@ -1,6 +1,6 @@
 
 /// プラットフォームの機能を使用するためのインターフェース。
-abstract class PlatformFeaturesGateway {
+abstract class PlatformFeaturesDriver {
   // todo クリップボード
   /// クリップボードに文字列をセットする
   Future<void> copyToClipboard(String text);
