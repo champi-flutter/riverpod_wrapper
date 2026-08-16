@@ -1,20 +1,17 @@
 import 'package:custom_core_types/custom_core_types.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_wrapper/src/di/providers.dart';
 import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/repository_interface/external_launch_repository.dart';
 
 class LaunchSupportLinkService {
   /// 外部通信リポジトリクラスのインスタンス
   ///
   /// 2026/05/09 変更: DI方法をコンストラクタ注入に変更
-  ExternalLaunchRepository get _readRepository =>
-      _ref.read(externalLaunchRepositoryProvider);
-
-  final Ref _ref;
+  final ExternalLaunchRepository _repository;
 
   // todo コンストラクタ
-  LaunchSupportLinkService(this._ref);
+  LaunchSupportLinkService({
+    required ExternalLaunchRepository externalLaunchRepository,
+  }) : _repository = externalLaunchRepository;
 
   /// URL展開メソッド
   Future<void> openUrl({String? strUrl, Uri? uri}) async {
@@ -24,13 +21,13 @@ class LaunchSupportLinkService {
     // デバッグ
     if (kDebugMode) {
       // メタ情報のみにアクセス
-      final bool isValid = await _readRepository.debugUriValidation(targetUri);
+      final bool isValid = await _repository.debugUriValidation(targetUri);
       final String result = isValid ? "URLは有効です" : "URLが無効です";
       _print(result, "[targetUri] $targetUri");
     }
     // 本番環境
     else {
-      await _readRepository.openUrl(uri: targetUri);
+      await _repository.openUrl(uri: targetUri);
     }
   }
 
@@ -56,9 +53,9 @@ class LaunchSupportLinkService {
     );
     final Result<void, Exception> result = switch (kDebugMode) {
       // デバッグ
-      true => await _readRepository.debugEmail(emailLaunchUri: emailLaunchUri),
+      true => await _repository.debugEmail(emailLaunchUri: emailLaunchUri),
       // 本番環境
-      false => await _readRepository.sendEmail(emailLaunchUri: emailLaunchUri),
+      false => await _repository.sendEmail(emailLaunchUri: emailLaunchUri),
     };
     return result;
   }

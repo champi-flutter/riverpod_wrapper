@@ -44,7 +44,7 @@ final class LoadingViewModelProvider
   }
 }
 
-String _$loadingViewModelHash() => r'bd9841d72590b80c27fc81061edf7d3192f3e37f';
+String _$loadingViewModelHash() => r'ddcb1f8569cf4609f0c4e321261acebcfd6dbb52';
 
 /// 2026/04/03 追加: ローディング状態を管理するクラス
 

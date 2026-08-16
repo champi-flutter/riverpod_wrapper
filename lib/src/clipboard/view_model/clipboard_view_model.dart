@@ -6,26 +6,28 @@ import 'package:riverpod_wrapper/src/loading/use_case/input_boundary/loading_use
 
 ///
 class ClipboardViewModel {
-  ClipboardViewModel(this._ref);
-
-  final Ref _ref;
+  ClipboardViewModel({required ClipboardUseCase clipboardUseCase,
+    required NotificationUseCase notificationUseCase,
+    required LoadingUseCase loadingUseCase,
+  }) : _notificator = notificationUseCase,
+        _clipboardUseCase = clipboardUseCase,
+        _loader = loadingUseCase;
 
   // todo 依存先
   /// [ClipboardUseCase] のインスタンスを参照する getter
-  ClipboardUseCase get _clipboardUseCase => _ref.read(clipboardUseCaseProvider);
+  final ClipboardUseCase _clipboardUseCase;
 
   /// 通知送信先
-  NotificationUseCase get _readNotification =>
-      _ref.read(notificationUseCaseProvider);
+  final NotificationUseCase _notificator;
 
   // todo ローディング関連
   /// ローディングの呼び出し元
-  LoadingUseCase get loading => _ref.read(loadingUseCaseProvider);
+  final LoadingUseCase _loader;
 
   // todo 通知関連
   /// 完了通知メソッド
   void _notifySuccess() {
-    _readNotification.notifyInfo(
+    _notificator.notifyInfo(
       type: NotificationType.success,
       notification: "クリップボードにコピーしました",
     );
@@ -33,7 +35,7 @@ class ClipboardViewModel {
 
   /// クリップボードにコピーするメソッド
   Future<void> copyToClipboard({required String word}) =>
-      loading.loadAsync(() async {
+      _loader.loadAsync(() async {
         final Result<void, Exception> result = await _clipboardUseCase
             .copyToClipboard(word);
         switch (result) {

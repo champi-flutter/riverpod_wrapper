@@ -1,46 +1,32 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_wrapper/src/loading/entity/loading_state.dart';
-import 'package:riverpod_wrapper/src/loading/use_case/output_boundary/loading_presenter.dart';
 
 part 'loading_view_model.g.dart';
 
 /// 2026/04/03 追加: ローディング状態を管理するクラス
 @riverpod
-class LoadingViewModel extends _$LoadingViewModel implements LoadingPresenter{
+class LoadingViewModel extends _$LoadingViewModel{
 
   @override
   LoadingState build (){
     return const LoadingState();
   }
 
-  /// [LoadingState.loadingProcess] を 1 増やす
-  @override
-  void startLoading() {
+  /// ローディングを 1 増やす
+  void increase(){
     state = state.copyWith(loadingProcess: state.loadingProcess +1);
     _print("ローディングが開始（loadingProcess: ${state.loadingProcess}）");
   }
 
-  /// [LoadingState.loadingProcess] を 1 減らす
-  @override
-  void finishLoading() {
+  /// ローディングを 1 減らす
+  void decrease(){
     state = state.copyWith(loadingProcess: state.loadingProcess -1);
     _print("ローディングが終了（loadingProcess: ${state.loadingProcess}）");
   }
 
-  // /// ローディング処理
-  // Future<T> loadAsync<T>(Future<T> Function() action) async {
-  //   // ローディング開始
-  //   _startLoading();
-  //   // 処理本体
-  //   final T result = await action();
-  //   // ローディング終了
-  //   _finishLoading();
-  //   return result;
-  // }
-
   /// クラスごとの初期化完了フラグを設置するメソッド
-  void setIsReady({required Type classType}) {
+  void setReady({required Type classType}) {
     if (!state.isReadyMap.containsKey(classType)) {
       _print("setIsReady : $classType");
 
@@ -72,20 +58,6 @@ class LoadingViewModel extends _$LoadingViewModel implements LoadingPresenter{
     state = state.copyWith(shouldReset: true);
   }
 }
-
-// /// ローディング処理を扱う mixin
-// ///
-// /// 記述の簡略化のため
-// mixin LoadingHandler {
-//   /// [LoadingViewModel]を取得するための抽象メソッド
-//   LoadingViewModel get loadingVM;
-//
-//   /// ローディング処理
-//   Future<T> loadAsync<T>(Future<T> Function() action) async {
-//     // ローディング開始
-//     return await loadingVM.loadAsync(action);
-//   }
-// }
 
 /// printメソッド [ローディング管理クラス]
 void _print(String s1, [String? s2, String? s3, String? s4, String? s5]) {

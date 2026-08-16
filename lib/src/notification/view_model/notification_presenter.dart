@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -12,17 +10,18 @@ import 'package:rxdart/rxdart.dart';
 /// 各クラスから何らかの通知を受け取り、画面に知らせるクラス
 class NotificationPresenter {
   // todo コンストラクタ
-  NotificationPresenter(this._ref){
+  NotificationPresenter({required NotificationUseCase notificationUseCase})
+    : _notificationUseCase = notificationUseCase {
     // 購読を開始
-    _subscription = _readUseCase.notificationStream.listen((Notified event){
+    _subscription = _notificationUseCase.notificationStream.listen((
+      Notified event,
+    ) {
       _notificationController.add(event);
     });
   }
 
-  final Ref _ref;
-  
   /// 通知送信クラスのインスタンス
-  NotificationUseCase get _readUseCase => _ref.read(notificationUseCaseProvider);
+  final NotificationUseCase _notificationUseCase;
 
   final _notificationController = BehaviorSubject<Notified>();
 

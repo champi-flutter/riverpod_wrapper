@@ -13,30 +13,32 @@ import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/launch_support_l
 ///
 /// 2026/05/12 変更: [LoadingHandler] を mixin 。
 class MenuBarViewModel {
-  final Ref _ref;
-
   // todo コンストラクタ
-  MenuBarViewModel(this._ref);
+  MenuBarViewModel({
+    required NotificationUseCase notificationUseCase,
+    required LaunchSupportLinkService launchSupportLinkService,
+    required LoadingUseCase loadingUseCase,
+  }) : _notificator = notificationUseCase,
+       _launchSupportLinkService = launchSupportLinkService,
+       _loader = loadingUseCase;
 
   // todo 依存先
   /// 通知送信先
-  NotificationUseCase get _readEventNotifier =>
-      _ref.read(notificationUseCaseProvider);
+  final NotificationUseCase _notificator;
 
   /// 外部通信サービスクラスのインスタンス
   ///
   /// 2026/05/10 変更: DIをコンストラクタ注入に変更
-  LaunchSupportLinkService get _readService =>
-      _ref.read(launchSupportLinkServiceProvider);
+  final LaunchSupportLinkService _launchSupportLinkService;
 
   // todo ローディング関連
   /// ローディングの呼び出し元
-  LoadingUseCase get loading => _ref.read(loadingUseCaseProvider);
+  final LoadingUseCase _loader;
 
   // todo 通知関連
   /// レポート送信完了通知メソッド
   void _notifySuccess() {
-    _readEventNotifier.notifyInfo(
+    _notificator.notifyInfo(
       layer: NotificationFrom.gateway,
       type: NotificationType.confirm,
       notification: "不具合を送信しました。\nご協力ありがとうございます。",
@@ -45,14 +47,14 @@ class MenuBarViewModel {
 
   /// 利用規約タップメソッド
   Future<void> onTermsTapped({required String termsUrl}) =>
-      loading.loadAsync(() async {
-        await _readService.openUrl(strUrl: termsUrl);
+      _loader.loadAsync(() async {
+        await _launchSupportLinkService.openUrl(strUrl: termsUrl);
       });
 
   /// 利用規約タップメソッド
   Future<void> onPrivacyPolicyTapped({required String privacyPolicyUrl}) =>
-      loading.loadAsync(() async {
-        await _readService.openUrl(strUrl: privacyPolicyUrl);
+      _loader.loadAsync(() async {
+        await _launchSupportLinkService.openUrl(strUrl: privacyPolicyUrl);
       });
 
   /// レポート送信メソッド
@@ -60,8 +62,8 @@ class MenuBarViewModel {
   // 折りたたみ用
   async {
     Result<void, Exception>? _result;
-    await loading.loadAsync(() async {
-      _result = await _readService.sendEmail(
+    await _loader.loadAsync(() async {
+      _result = await _launchSupportLinkService.sendEmail(
         subject: subject,
         body: body,
         developersEmail: "",
@@ -83,7 +85,7 @@ class MenuBarViewModel {
 
   /// ストア画面遷移メソッド
   Future<void> onFeedback({required String storeUrl}) =>
-      loading.loadAsync(() async {
-        await _readService.openUrl(strUrl: storeUrl);
+      _loader.loadAsync(() async {
+        await _launchSupportLinkService.openUrl(strUrl: storeUrl);
       });
 }

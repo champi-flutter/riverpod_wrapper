@@ -4,8 +4,11 @@ import 'package:riverpod_wrapper/riverpod_wrapper.dart';
 import 'package:riverpod_wrapper/src/clipboard/use_case/clipboard_use_case.dart';
 import 'package:riverpod_wrapper/src/clipboard/view_model/clipboard_view_model.dart';
 import 'package:riverpod_wrapper/src/loading/use_case/input_boundary/loading_use_case.dart';
+import 'package:riverpod_wrapper/src/loading/use_case/input_boundary/requires_restarting_emulator_use_case.dart';
 import 'package:riverpod_wrapper/src/loading/use_case/interactor/loading_interactor.dart';
+import 'package:riverpod_wrapper/src/loading/use_case/interactor/requires_restarting_emulator_interactor.dart';
 import 'package:riverpod_wrapper/src/loading/use_case/output_boundary/loading_presenter.dart';
+import 'package:riverpod_wrapper/src/loading/view_model/loading_presenter_impl.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/notification_use_case.dart';
 import 'package:riverpod_wrapper/src/notification/view_model/notification_presenter.dart';
 import 'package:riverpod_wrapper/src/platform_features/gateway/platform_features_driver_impl.dart';
@@ -24,14 +27,24 @@ part 'providers.g.dart';
 @riverpod
 NotificationUseCase notificationUseCase(Ref ref) => NotificationUseCase();
 
-/// ローディング
+/// ローディング処理フロー
 @riverpod
-LoadingUseCase loadingUseCase(Ref ref)=>LoadingInteractor(ref);
+LoadingUseCase loadingUseCase(Ref ref) =>
+    LoadingInteractor(loadingPresenter: ref.watch(loadingPresenterProvider));
+
+/// エミュレータを再起動する必要があることを知らせる処理フロー
+@riverpod
+RequiresRestartingEmulatorUseCase requiresRestartingEmulatorUseCase(Ref ref) =>
+    RequiresRestartingEmulatorInteractor(
+      loadingPresenter: ref.watch(loadingPresenterProvider),
+    );
 
 /// 外部通信サービスクラス
 @riverpod
 LaunchSupportLinkService launchSupportLinkService(Ref ref) =>
-    LaunchSupportLinkService(ref);
+    LaunchSupportLinkService(
+      externalLaunchRepository: ref.watch(externalLaunchRepositoryProvider),
+    );
 
 @riverpod
 ClipboardUseCase clipboardUseCase(Ref ref) => ClipboardUseCase(ref);
@@ -44,20 +57,33 @@ ExternalLaunchRepository externalLaunchRepository(Ref ref) =>
 
 /// プラットフォームの機能へのインターフェース
 @riverpod
-PlatformFeaturesDriver platformFeaturesDriver(Ref ref) => PlatformFeaturesDriverImpl();
+PlatformFeaturesDriver platformFeaturesDriver(Ref ref) =>
+    PlatformFeaturesDriverImpl();
 
 // todo ViewModel（状態なし）
 /// 通知管理クラス
 @riverpod
-NotificationPresenter notificationPresenter(Ref ref) =>
-    NotificationPresenter(ref);
+NotificationPresenter notificationPresenter(Ref ref) => NotificationPresenter(
+  notificationUseCase: ref.watch(notificationUseCaseProvider),
+);
 
+/// ローディングの表示への反映ポート
 @riverpod
-LoadingPresenter loadingPresenter(Ref ref) => LoadingViewModel();
+LoadingPresenter loadingPresenter(Ref ref) => LoadingPresenterImpl(
+  loadingViewModel: ref.watch(loadingViewModelProvider.notifier),
+);
 
 /// サイドバーVM
 @riverpod
-MenuBarViewModel menuBarViewModel(Ref ref) => MenuBarViewModel(ref);
+MenuBarViewModel menuBarViewModel(Ref ref) => MenuBarViewModel(
+  notificationUseCase: ref.watch(notificationUseCaseProvider),
+  launchSupportLinkService: ref.watch(launchSupportLinkServiceProvider),
+  loadingUseCase: ref.watch(loadingUseCaseProvider),
+);
 
 @riverpod
-ClipboardViewModel clipboardViewModel(Ref ref) => ClipboardViewModel(ref);
+ClipboardViewModel clipboardViewModel(Ref ref) => ClipboardViewModel(
+  notificationUseCase: ref.watch(notificationUseCaseProvider),
+  loadingUseCase: ref.watch(loadingUseCaseProvider),
+  clipboardUseCase: ref.watch(clipboardUseCaseProvider),
+);

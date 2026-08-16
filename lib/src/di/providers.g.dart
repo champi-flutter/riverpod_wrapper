@@ -64,17 +64,17 @@ final class NotificationUseCaseProvider
 String _$notificationUseCaseHash() =>
     r'9d44df07d44d3fcdf67c10a6f3c9af5dc93d0af3';
 
-/// ローディング
+/// ローディング処理フロー
 
 @ProviderFor(loadingUseCase)
 const loadingUseCaseProvider = LoadingUseCaseProvider._();
 
-/// ローディング
+/// ローディング処理フロー
 
 final class LoadingUseCaseProvider
     extends $FunctionalProvider<LoadingUseCase, LoadingUseCase, LoadingUseCase>
     with $Provider<LoadingUseCase> {
-  /// ローディング
+  /// ローディング処理フロー
   const LoadingUseCaseProvider._()
     : super(
         from: null,
@@ -108,7 +108,64 @@ final class LoadingUseCaseProvider
   }
 }
 
-String _$loadingUseCaseHash() => r'99a2afb9cbad1341c90b5750bbc2b85e52a71170';
+String _$loadingUseCaseHash() => r'036e9cc3d9a13bd6afc4cd809f787424998798d5';
+
+/// エミュレータを再起動する必要があることを知らせる処理フロー
+
+@ProviderFor(requiresRestartingEmulatorUseCase)
+const requiresRestartingEmulatorUseCaseProvider =
+    RequiresRestartingEmulatorUseCaseProvider._();
+
+/// エミュレータを再起動する必要があることを知らせる処理フロー
+
+final class RequiresRestartingEmulatorUseCaseProvider
+    extends
+        $FunctionalProvider<
+          RequiresRestartingEmulatorUseCase,
+          RequiresRestartingEmulatorUseCase,
+          RequiresRestartingEmulatorUseCase
+        >
+    with $Provider<RequiresRestartingEmulatorUseCase> {
+  /// エミュレータを再起動する必要があることを知らせる処理フロー
+  const RequiresRestartingEmulatorUseCaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'requiresRestartingEmulatorUseCaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() =>
+      _$requiresRestartingEmulatorUseCaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<RequiresRestartingEmulatorUseCase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  RequiresRestartingEmulatorUseCase create(Ref ref) {
+    return requiresRestartingEmulatorUseCase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(RequiresRestartingEmulatorUseCase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<RequiresRestartingEmulatorUseCase>(
+        value,
+      ),
+    );
+  }
+}
+
+String _$requiresRestartingEmulatorUseCaseHash() =>
+    r'090e6ddd308b0f5233145ecccf228652efe867f8';
 
 /// 外部通信サービスクラス
 
@@ -161,7 +218,7 @@ final class LaunchSupportLinkServiceProvider
 }
 
 String _$launchSupportLinkServiceHash() =>
-    r'96b194e8e27269b3a935a99e22f202cdb90bed0f';
+    r'9c12a20d940266ca1ae50d21e69d16adbc3c6b2b';
 
 @ProviderFor(clipboardUseCase)
 const clipboardUseCaseProvider = ClipboardUseCaseProvider._();
@@ -366,10 +423,14 @@ final class NotificationPresenterProvider
 }
 
 String _$notificationPresenterHash() =>
-    r'3405f28f5516587251a59205c4be577ae996b5fc';
+    r'c5291ca43a0edc9cdf26a590254f8d2c9fa8b7d5';
+
+/// ローディングの表示への反映ポート
 
 @ProviderFor(loadingPresenter)
 const loadingPresenterProvider = LoadingPresenterProvider._();
+
+/// ローディングの表示への反映ポート
 
 final class LoadingPresenterProvider
     extends
@@ -379,6 +440,7 @@ final class LoadingPresenterProvider
           LoadingPresenter
         >
     with $Provider<LoadingPresenter> {
+  /// ローディングの表示への反映ポート
   const LoadingPresenterProvider._()
     : super(
         from: null,
@@ -412,7 +474,7 @@ final class LoadingPresenterProvider
   }
 }
 
-String _$loadingPresenterHash() => r'881529afa682df9ebd13783af45be70e96dca94d';
+String _$loadingPresenterHash() => r'c62e1073cd950c4a3deef4a7041cbeae3dffbc4a';
 
 /// サイドバーVM
 
@@ -463,7 +525,7 @@ final class MenuBarViewModelProvider
   }
 }
 
-String _$menuBarViewModelHash() => r'0ec7ae395f9aee371f1f6867304f26609054dc08';
+String _$menuBarViewModelHash() => r'7196dd5c86b810b75ed197cf3947748ddec4b072';
 
 @ProviderFor(clipboardViewModel)
 const clipboardViewModelProvider = ClipboardViewModelProvider._();
@@ -511,4 +573,4 @@ final class ClipboardViewModelProvider
 }
 
 String _$clipboardViewModelHash() =>
-    r'aa360d3ced5105262e2effd41aa045083c928782';
+    r'a7f0e41080c00a43b729538474c9ccbc40413cdd';
