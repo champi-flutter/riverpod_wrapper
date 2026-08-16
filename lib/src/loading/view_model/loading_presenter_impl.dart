@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:riverpod_wrapper/riverpod_wrapper.dart';
-import 'package:riverpod_wrapper/src/loading/entity/loading_state.dart';
 import 'package:riverpod_wrapper/src/loading/use_case/output_boundary/loading_presenter.dart';
+import 'package:riverpod_wrapper/src/loading/view_model/loading_view_model.dart';
 
 /// 2026/04/03 追加: ローディング状態を管理するクラス
 class LoadingPresenterImpl implements LoadingPresenter {

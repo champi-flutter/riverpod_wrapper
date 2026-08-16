@@ -5,7 +5,9 @@ export 'package:riverpod_wrapper/src/di/providers.dart';
 
 // loading
 export 'package:riverpod_wrapper/src/loading/entity/loading_state.dart';
-export 'package:riverpod_wrapper/src/loading/view_model/loading_view_model.dart';
+export 'package:riverpod_wrapper/src/loading/use_case/input_boundary/loading_use_case.dart';
+export 'package:riverpod_wrapper/src/loading/use_case/input_boundary/requires_restarting_emulator_use_case.dart';
+// export 'package:riverpod_wrapper/src/loading/view_model/loading_view_model.dart';
 export 'package:riverpod_wrapper/src/loading/view/loading_view.dart';
 export 'package:riverpod_wrapper/src/loading/view/loading_wrapper.dart';
 export 'package:riverpod_wrapper/src/loading/view/reset_view.dart';
