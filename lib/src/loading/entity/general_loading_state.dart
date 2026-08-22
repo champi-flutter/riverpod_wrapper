@@ -1,23 +1,23 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'loading_state.freezed.dart';
+part 'general_loading_state.freezed.dart';
 
 @freezed
-abstract class LoadingState with _$LoadingState {
-  const factory LoadingState({
-    @Default(0) int loadingProcess,
+abstract class GeneralLoadingState with _$GeneralLoadingState {
+  const factory GeneralLoadingState({
+    @Default(0) int loading,
     @Default(<Type, bool>{}) Map<Type, bool> isReadyMap,
     @Default(false) bool shouldReset,
-  }) = _LoadingState;
+  }) = _GeneralLoadingState;
 
   // getter を freezed クラス内に定義するためのカスタムコンストラクタ
-  const LoadingState._();
+  const GeneralLoadingState._();
 
   /// ローディング表示を有効にするかどうか
   ///
   /// ローディングが始まると`true`になる。
-  bool get isLoading => loadingProcess > 0 || !isReady;
+  bool get isLoading => loading > 0 || !isReady;
 
   bool get isReady => !isReadyMap.containsValue(false);
 }

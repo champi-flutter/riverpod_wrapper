@@ -2,10 +2,14 @@
 /// ローディング処理の出力
 abstract class LoadingPresenter {
   /// ローディングを1つ開始する
-  void startLoading();
+  ///
+  /// [key] が指定された場合、固有ローディングを開始する。
+  void startLoading({int? key});
 
   /// ローディングを1つ終了する
-  void finishLoading();
+  ///
+  /// [key] が指定された場合、固有ローディングを終了する。
+  void finishLoading({int? key});
 
   /// クラスごとの初期化完了フラグを設置するメソッド
   ///

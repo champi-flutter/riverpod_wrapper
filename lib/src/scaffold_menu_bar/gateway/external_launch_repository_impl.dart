@@ -2,7 +2,6 @@ import 'package:custom_core_types/custom_core_types.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
-import 'package:riverpod_wrapper/src/di/providers.dart';
 import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
 import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/repository_interface/external_launch_repository.dart';
 
@@ -11,18 +10,17 @@ import 'package:http/http.dart' as http;
 
 /// 外部通信リポジトリの実装クラス
 class ExternalLaunchRepositoryImpl implements ExternalLaunchRepository {
-  /// 2026/05/13 追加: 通知送信クラスのインスタンス
-  final Ref _ref;
-
   // todo コンストラクタ
-  ExternalLaunchRepositoryImpl(this._ref);
+  ExternalLaunchRepositoryImpl({
+    required NotificationService notificationService,
+  }) : _notificator = notificationService;
 
   // todo 依存先
-  NotificationUseCase get _readEventNotifier => _ref.read(notificationUseCaseProvider);
+  final NotificationService _notificator;
 
   /// 2026/05/13 追加: エラーハンドリング
   void _notifyError(String error) {
-    _readEventNotifier.notifyInfo(
+    _notificator.notifyInfo(
       layer: NotificationFrom.gateway,
       type: NotificationType.error,
       notification: "[外部通信リポジトリ] " + error,
@@ -82,7 +80,7 @@ class ExternalLaunchRepositoryImpl implements ExternalLaunchRepository {
     _print("Emailデバッグメソッド");
     try {
       final bool canLaunch = await canLaunchUrl(emailLaunchUri);
-      if(canLaunch){
+      if (canLaunch) {
         return Success(null);
       } else {
         // 2026/05/13 追加: エラーハンドリング

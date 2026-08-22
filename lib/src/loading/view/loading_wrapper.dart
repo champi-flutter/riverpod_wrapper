@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_wrapper/src/loading/view/loading_view.dart';
 import 'package:riverpod_wrapper/src/loading/view/reset_view.dart';
-import 'package:riverpod_wrapper/src/loading/view_model/loading_view_model.dart';
+import 'package:riverpod_wrapper/src/loading/view_model/general_loading_view_model.dart';
 
 class LoadingWrapper extends HookConsumerWidget {
   const LoadingWrapper({
@@ -33,11 +33,11 @@ class LoadingWrapper extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // ローディング
     final bool isLoading = ref.watch(
-      loadingViewModelProvider.select((state) => state.isLoading),
+      generalLoadingViewModelProvider.select((state) => state.isLoading),
     );
     // データリセット時（デバッグ用）
     final bool shouldReset = ref.watch(
-      loadingViewModelProvider.select((state) => state.shouldReset),
+      generalLoadingViewModelProvider.select((state) => state.shouldReset),
     );
     return Stack(
       children: [

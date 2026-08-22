@@ -3,22 +3,21 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
 import 'package:riverpod_wrapper/src/platform_features/use_case/driver_interface/platform_features_driver.dart';
 
-class ClipboardUseCase {
-  ClipboardUseCase(this._ref);
-
-  final Ref _ref;
+class ClipboardService {
+  ClipboardService({required NotificationService notificationService,
+    required PlatformFeaturesDriver platformFeaturesDriver,
+  }): _notificator = notificationService, _platformFeatures = platformFeaturesDriver;
 
   // todo 依存先
   /// 通知送信先
-  NotificationUseCase get _readNotificationUseCase => _ref.read(notificationUseCaseProvider);
+  final NotificationService _notificator;
 
   /// プラットフォームの機能へのインターフェース
-  PlatformFeaturesDriver get _readPlatformFeaturesGateway =>
-      _ref.read(platformFeaturesDriverProvider);
+  final PlatformFeaturesDriver _platformFeatures;
 
   /// 2026/05/13 追加: エラーハンドリング
   void _notifyError(String error) {
-    _readNotificationUseCase.notifyInfo(
+    _notificator.notifyInfo(
       layer: NotificationFrom.useCase,
       type: NotificationType.error,
       notification: "[clipboard_use_case] " + error,
@@ -32,7 +31,7 @@ class ClipboardUseCase {
         throw Exception("文字が空です。");
       }
       // プラットフォームの機能を、インターフェースをかいして呼び出す
-      await _readPlatformFeaturesGateway.copyToClipboard(word);
+      await _platformFeatures.copyToClipboard(word);
       return Success(null);
     } catch (e) {
       _notifyError(e.toString());
@@ -44,8 +43,7 @@ class ClipboardUseCase {
   Future<Result<String?, Exception>> pasteFromClipboard() async {
     try {
       // プラットフォームの機能を、インターフェースを介して呼び出す
-      final String? text = await _readPlatformFeaturesGateway
-          .pasteFromClipboard();
+      final String? text = await _platformFeatures.pasteFromClipboard();
       return Success(text);
     } catch (e) {
       _notifyError(e.toString());

@@ -1,17 +1,17 @@
-
 import 'package:flutter/foundation.dart';
-import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:riverpod_wrapper/riverpod_wrapper.dart';
 
 /// 通知機能管理クラス
-class NotificationUseCase {
-  final _notificationController = BehaviorSubject<Notified>();
-
-  Stream<Notified> get notificationStream => _notificationController.stream;
+class NotificationServiceImpl implements NotificationService{
+  // NotificationServiceImpl({
+  //   required NotificationStreamHandler notificationStreamHandler,
+  // }) : _streamHandler = notificationStreamHandler;
+  // final NotificationStreamHandler _streamHandler;
 
   /// 内部システムから通知を送信するメソッド
   ///
   /// 2026/04/24 変更: インターフェースを変更
+  @override
   void notifyInfo({
     NotificationFrom? layer,
     required NotificationType type,
@@ -20,11 +20,12 @@ class NotificationUseCase {
   // 折りたたみ用
   {
     final Notified notifiedInfo = (
-      layer: layer,
-      type: type,
-      notification: notification,
+    layer: layer,
+    type: type,
+    notification: notification,
     );
-    _notificationController.add(notifiedInfo);
+
+    // todo （2026/08/22）＞＞
     _print("通知リスナーが発火");
   }
 }

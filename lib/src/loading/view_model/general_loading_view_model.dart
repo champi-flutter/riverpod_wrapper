@@ -1,28 +1,28 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:riverpod_wrapper/src/loading/entity/loading_state.dart';
+import 'package:riverpod_wrapper/src/loading/entity/general_loading_state.dart';
 
-part 'loading_view_model.g.dart';
+part 'general_loading_view_model.g.dart';
 
 /// 2026/04/03 追加: ローディング状態を管理するクラス
 @riverpod
-class LoadingViewModel extends _$LoadingViewModel{
+class GeneralLoadingViewModel extends _$GeneralLoadingViewModel{
 
   @override
-  LoadingState build (){
-    return const LoadingState();
+  GeneralLoadingState build (){
+    return const GeneralLoadingState();
   }
 
   /// ローディングを 1 増やす
   void increase(){
-    state = state.copyWith(loadingProcess: state.loadingProcess +1);
-    _print("ローディングが開始（loadingProcess: ${state.loadingProcess}）");
+    state = state.copyWith(loading: state.loading +1);
+    _print("ローディングが開始（loading: ${state.loading}）");
   }
 
   /// ローディングを 1 減らす
   void decrease(){
-    state = state.copyWith(loadingProcess: state.loadingProcess -1);
-    _print("ローディングが終了（loadingProcess: ${state.loadingProcess}）");
+    state = state.copyWith(loading: state.loading -1);
+    _print("ローディングが終了（loading: ${state.loading}）");
   }
 
   /// クラスごとの初期化完了フラグを設置するメソッド

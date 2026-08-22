@@ -8,9 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_wrapper/src/di/providers.dart';
-import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
-import 'package:riverpod_wrapper/src/scaffold_menu_bar/view/report_dialog.dart';
+import 'package:riverpod_wrapper/riverpod_wrapper.dart';
+import 'package:riverpod_wrapper/src/notification/view_model/notification_view_model.dart';
 
 /// 2026/04/01 追加: Stateクラスから送られてきた何らかの通知を画面で表示するラッパークラス。
 class NotificationView extends HookConsumerWidget {
@@ -22,20 +21,15 @@ class NotificationView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 最初の画面描画後に購読
-    useEffect(() {
-      final usedContext = useContext();
-      final readNotificationPresenter = ref.read(notificationPresenterProvider);
-      // 購読を開始
-      final subscription = readNotificationPresenter.notificationStream.listen((
-        Notified notifiedInfo,
-      ) {
+
+    ref.listen<Notified?>(notificationViewModelProvider, (previous, next){
+      if (next != null){
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (usedContext.mounted) {
+          if (context.mounted) {
             final String? layer;
-            switch (notifiedInfo.type) {
+            switch (next.type) {
               case NotificationType.confirm:
-                layer = switch (notifiedInfo.layer) {
+                layer = switch (next.layer) {
                   NotificationFrom.viewModel => "ViewModelConfirmation\n",
                   NotificationFrom.useCase => "UseCaseConfirmation\n",
                   NotificationFrom.gateway => "GatewayConfirmation\n",
@@ -43,10 +37,10 @@ class NotificationView extends HookConsumerWidget {
                   null => null,
                 };
                 // 通知を表示
-                usedContext.showNotification(
+                context.showNotification(
                   title: "確認",
                   titleColor: Colors.white,
-                  notifiedInfo: notifiedInfo,
+                  notifiedInfo: next,
                   duration: const Duration(minutes: 30),
                   layer: layer,
                   isError: false,
@@ -54,7 +48,7 @@ class NotificationView extends HookConsumerWidget {
                 );
 
               case NotificationType.test:
-                layer = switch (notifiedInfo.layer) {
+                layer = switch (next.layer) {
                   NotificationFrom.viewModel => "ViewModelResult\n",
                   NotificationFrom.useCase => "UseCaseResult\n",
                   NotificationFrom.gateway => "GatewayResult\n",
@@ -62,10 +56,10 @@ class NotificationView extends HookConsumerWidget {
                   null => null,
                 };
                 // 通知を表示
-                usedContext.showNotification(
+                context.showNotification(
                   title: "テスト",
                   titleColor: Colors.blueAccent.shade100,
-                  notifiedInfo: notifiedInfo,
+                  notifiedInfo: next,
                   duration: const Duration(minutes: _testDuration),
                   layer: layer,
                   isError: false,
@@ -73,7 +67,7 @@ class NotificationView extends HookConsumerWidget {
                 );
 
               case NotificationType.error:
-                layer = switch (notifiedInfo.layer) {
+                layer = switch (next.layer) {
                   NotificationFrom.viewModel => "ViewModelException\n",
                   NotificationFrom.useCase => "UseCaseException\n",
                   NotificationFrom.gateway => "GatewayException\n",
@@ -81,10 +75,10 @@ class NotificationView extends HookConsumerWidget {
                   null => null,
                 };
                 // 通知バーを下から表示
-                usedContext.showNotification(
+                context.showNotification(
                   title: "エラー",
                   titleColor: Colors.redAccent,
-                  notifiedInfo: notifiedInfo,
+                  notifiedInfo: next,
                   duration: const Duration(minutes: 60),
                   layer: layer,
                   isError: true,
@@ -92,9 +86,9 @@ class NotificationView extends HookConsumerWidget {
                 );
 
               case NotificationType.success:
-                // 通知バーを下から表示
-                usedContext.showNotification(
-                  notifiedInfo: notifiedInfo,
+              // 通知バーを下から表示
+                context.showNotification(
+                  notifiedInfo: next,
                   duration: const Duration(seconds: 3),
                   isError: false,
                   toastType: ToastType.top,
@@ -102,11 +96,8 @@ class NotificationView extends HookConsumerWidget {
             }
           }
         });
-      });
-
-      // クリーンアップ関数で購読を解除
-      return () => subscription.cancel();
-    }, []);
+      }
+    });
 
     return child;
   }

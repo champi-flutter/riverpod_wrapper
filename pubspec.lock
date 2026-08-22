@@ -190,10 +190,10 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "2e82952338257a30b1c605e46386463b89505558"
+      resolved-ref: "105e0e1ee8531f040a8acc003673c97298901bfd"
       url: "https://github.com/champi-flutter/custom_core_types.git"
     source: git
-    version: "1.0.0+1"
+    version: "1.1.1+10"
   custom_lint_core:
     dependency: transitive
     description:

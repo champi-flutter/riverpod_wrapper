@@ -2,18 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_wrapper/src/di/providers.dart';
+import 'package:riverpod_wrapper/src/di/launch_support_providers.dart';
 import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
-import 'package:riverpod_wrapper/src/notification/use_case/notification_use_case.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/notification_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// 各クラスから何らかの通知を受け取り、画面に知らせるクラス
 class NotificationPresenter {
   // todo コンストラクタ
-  NotificationPresenter({required NotificationUseCase notificationUseCase})
-    : _notificationUseCase = notificationUseCase {
+  NotificationPresenter({required NotificationService notificationService})
+    : _notificationService = notificationService {
     // 購読を開始
-    _subscription = _notificationUseCase.notificationStream.listen((
+    _subscription = _notificationService.notificationStream.listen((
       Notified event,
     ) {
       _notificationController.add(event);
@@ -21,7 +21,7 @@ class NotificationPresenter {
   }
 
   /// 通知送信クラスのインスタンス
-  final NotificationUseCase _notificationUseCase;
+  final NotificationService _notificationService;
 
   final _notificationController = BehaviorSubject<Notified>();
 
