@@ -9,9 +9,12 @@ abstract class AutoIntegerKeyHolder {
 
   /// [key] があるのを確認してから使用するメソッド
   int use(int key);
+  
+  /// 指定 [key] の登録を消すメソッド
+  void unregister(int key);
 
   /// このオブジェクトが管理する識別子をすべて破棄するメソッド
-  void clear();
+  void clearAll();
 }
 
 /// 整数型自動生成識別子管理オブジェクトの実装部分
@@ -42,9 +45,18 @@ class AutoIntegerKeyHolderImpl implements AutoIntegerKeyHolder {
     return key;
   }
 
+  /// 指定 [key] の登録を消すメソッド
+  @override
+  void unregister(int key){
+    if(!_keys.contains(key)){
+      throw Exception("指定の key が見つかりませんでした。（$key）");
+    }
+    _keys.remove(key);
+  }
+
   /// このオブジェクトが管理する識別子をすべて破棄するメソッド
   @override
-  void clear() {
+  void clearAll() {
     _keys.clear();
   }
 }
@@ -61,5 +73,5 @@ class AutoIntegerKeyHolderImpl implements AutoIntegerKeyHolder {
 ///   userKeyHolder: ref.watch(userKeyHolderProvider),
 ///   ```
 ///
-Provider<AutoIntegerKeyHolder> keyHolder() =>
+Provider<AutoIntegerKeyHolder> autoIntegerKeyHolder() =>
     Provider<AutoIntegerKeyHolder>((_) => AutoIntegerKeyHolderImpl());

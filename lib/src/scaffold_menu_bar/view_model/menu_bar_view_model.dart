@@ -4,7 +4,7 @@ import 'package:riverpod_wrapper/src/di/launch_support_providers.dart';
 import 'package:riverpod_wrapper/src/loading/use_case/input_boundary/loading_service.dart';
 import 'package:riverpod_wrapper/src/loading/view_model/general_loading_view_model.dart';
 import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
-import 'package:riverpod_wrapper/src/notification/use_case/notification_service.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/input_boundary/notification_service.dart';
 import 'package:riverpod_wrapper/src/scaffold_menu_bar/use_case/launch_support_link_service.dart';
 
 /// サイドメニューVMクラス

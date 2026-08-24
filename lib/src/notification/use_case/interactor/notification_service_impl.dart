@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/handler/stream_handler/notification_stream_handler.dart';
 
 /// 通知機能管理クラス
 class NotificationServiceImpl implements NotificationService{
   // NotificationServiceImpl({
   //   required NotificationStreamHandler notificationStreamHandler,
   // }) : _streamHandler = notificationStreamHandler;
-  // final NotificationStreamHandler _streamHandler;
+  final NotificationStreamHandler _streamHandler;
 
   /// 内部システムから通知を送信するメソッド
   ///
@@ -24,7 +25,9 @@ class NotificationServiceImpl implements NotificationService{
     type: type,
     notification: notification,
     );
-
+    _streamHandler.listen(onData: (_) async {
+      await Future.delayed();
+    });
     // todo （2026/08/22）＞＞
     _print("通知リスナーが発火");
   }
