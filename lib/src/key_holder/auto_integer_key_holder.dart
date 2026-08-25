@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 整数型自動生成識別子管理オブジェクト
@@ -9,6 +11,12 @@ abstract class AutoIntegerKeyHolder {
 
   /// [key] があるのを確認してから使用するメソッド
   int use(int key);
+
+  /// 指定 [key] を使用し、登録から消す。
+  int consume(int key);
+
+  /// 今ある [key] の中の先頭のデータ
+  int? get firstIn;
   
   /// 指定 [key] の登録を消すメソッド
   void unregister(int key);
@@ -19,21 +27,21 @@ abstract class AutoIntegerKeyHolder {
 
 /// 整数型自動生成識別子管理オブジェクトの実装部分
 class AutoIntegerKeyHolderImpl implements AutoIntegerKeyHolder {
+
+  AutoIntegerKeyHolderImpl(): _next = 0;
+
   final Set<int> _keys = {};
+
+  /// 次に追加する key
+  int _next;
 
   /// 新しい識別子を作成するメソッド
   @override
   int register() {
-    int candidate = 0;
-
-    // 使用されていない最小の数値を検索 (O(1))
-    while (_keys.contains(candidate)) {
-      candidate++;
-    }
-
-    // 見つかった識別子を登録して返す
-    _keys.add(candidate);
-    return candidate;
+    _next++;
+    // _next を登録して返す
+    _keys.add(_next);
+    return _next;
   }
 
   /// [key] があるのを確認してから使用するメソッド
@@ -44,6 +52,18 @@ class AutoIntegerKeyHolderImpl implements AutoIntegerKeyHolder {
     }
     return key;
   }
+
+  /// 指定 [key] を使用し、登録から消す。
+  @override
+  int consume(int key){
+    final int consumed = use(key);
+    unregister(consumed);
+    return consumed;
+  }
+
+  /// 今ある [key] の中の先頭のデータ
+  @override
+  int? get firstIn=> _keys.isEmpty ? null : _keys.reduce(min);
 
   /// 指定 [key] の登録を消すメソッド
   @override

@@ -5,35 +5,23 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_wrapper/src/di/launch_support_providers.dart';
 import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/input_boundary/notification_service.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/output_boundary/notification_presenter.dart';
+import 'package:riverpod_wrapper/src/notification/view_model/notification_view_model.dart';
 import 'package:rxdart/rxdart.dart';
 
-/// 各クラスから何らかの通知を受け取り、画面に知らせるクラス
-class NotificationPresenter {
-  // todo コンストラクタ
-  NotificationPresenter({required NotificationService notificationService})
-    : _notificationService = notificationService {
-    // 購読を開始
-    _subscription = _notificationService.notificationStream.listen((
-      Notified event,
-    ) {
-      _notificationController.add(event);
-    });
-  }
+/// 通知反映クラスの具象クラス
+class NotificationPresenterImpl implements NotificationPresenter{
 
-  /// 通知送信クラスのインスタンス
-  final NotificationService _notificationService;
+  NotificationPresenterImpl({
+    required NotificationViewModel notificationViewModel,
+  }) : _viewModel = notificationViewModel;
 
-  final _notificationController = BehaviorSubject<Notified>();
+  /// VM へのアクセス
+  final NotificationViewModel _viewModel;
 
-  /// 通知を受信するストリーム
-  Stream<Notified> get notificationStream => _notificationController.stream;
-
-  StreamSubscription<Notified>? _subscription;
-
-  /// コントローラを破棄。
-  void dispose() {
-    _subscription?.cancel();
-    _notificationController.close();
+  @override
+  void present(Notified notifiedInfo){
+    _viewModel.update(notifiedInfo);
   }
 }
 

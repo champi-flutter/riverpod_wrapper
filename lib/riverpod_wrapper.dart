@@ -20,7 +20,7 @@ export 'package:riverpod_wrapper/src/loading/view/reset_view.dart';
 // notification
 export 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
 export 'package:riverpod_wrapper/src/notification/use_case/input_boundary/notification_service.dart';
-export 'package:riverpod_wrapper/src/notification/view_model/notification_presenter.dart';
+// export 'package:riverpod_wrapper/src/notification/view_model/notification_presenter.dart';
 export 'package:riverpod_wrapper/src/notification/view/notification_view.dart';
 
 // scaffold_menu_bar

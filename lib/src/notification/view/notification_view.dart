@@ -24,6 +24,7 @@ class NotificationView extends HookConsumerWidget {
 
     ref.listen<Notified?>(notificationViewModelProvider, (previous, next){
       if (next != null){
+        // 現在の描画を待ってから通知表示メソッド（context.showNotification）を呼び出す
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (context.mounted) {
             final String? layer;
@@ -601,7 +602,7 @@ class _TopToastBody extends HookWidget {
   }
 }
 
-/// todo printメソッド [notification_view.dart]
+/// printメソッド [notification_view.dart]
 void _print(String s1, [String? s2, String? s3, String? s4, String? s5]) {
   if (kDebugMode) {
     print("");
