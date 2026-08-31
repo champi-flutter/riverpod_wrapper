@@ -1,7 +1,8 @@
+
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
 
-mixin NotificationFromUseCase {
+mixin NotificationFromView {
 
   /// 通知機能呼び出し口
   @visibleForOverriding
@@ -12,12 +13,11 @@ mixin NotificationFromUseCase {
   @protected
   void notifyError({
     required String content,
-    bool specifiesLayer = false,
   })
   // 折りたたみ用
   {
     notificationService.notifyInfo(
-      layer: specifiesLayer ? NotificationFrom.useCase : null,
+      layer: null,
       type: NotificationType.error,
       notification: content,
     );
@@ -27,30 +27,13 @@ mixin NotificationFromUseCase {
   @protected
   void notifySuccess({
     required String content,
-    bool specifiesLayer = false,
   })
   // 折りたたみ用
   {
     notificationService.notifyInfo(
-      layer: specifiesLayer ? NotificationFrom.useCase : null,
+      layer: null,
       type: NotificationType.success,
       notification: content,
     );
   }
-
-  /// Gateway からのフェッチのエラーの [Exception] のテンプレート
-  @protected
-  Exception fetchError({
-    String? details,
-    required String? methodName,
-  }) =>
-      Exception("FETCH_ERROR: ${methodName ?? "??"}\n$details");
-
-  /// Gateway への登録・保存のエラーの [Exception] のテンプレート
-  @protected
-  Exception saveError({
-    String? details,
-    required String? methodName,
-  }) =>
-      Exception("SAVE_ERROR: ${methodName ?? "??"}\n$details");
 }

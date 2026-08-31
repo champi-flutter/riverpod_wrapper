@@ -23,6 +23,8 @@ export 'package:riverpod_wrapper/src/notification/use_case/input_boundary/notifi
 // export 'package:riverpod_wrapper/src/notification/view_model/notification_presenter.dart';
 export 'package:riverpod_wrapper/src/notification/view/notification_view.dart';
 export 'package:riverpod_wrapper/src/notification/mixin/notification_from_use_case.dart';
+export 'package:riverpod_wrapper/src/notification/mixin/notification_from_view_model.dart';
+export 'package:riverpod_wrapper/src/notification/mixin/notification_from_view.dart';
 
 // scaffold_menu_bar
 export 'package:riverpod_wrapper/src/scaffold_menu_bar/gateway/external_launch_repository_impl.dart';
