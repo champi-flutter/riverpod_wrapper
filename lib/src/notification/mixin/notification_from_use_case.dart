@@ -23,11 +23,19 @@ mixin NotificationFromUseCase {
     );
   }
 
-  /// リポジトリからのフェッチのエラーの [Exception] のテンプレート
+  /// Gateway からのフェッチのエラーの [Exception] のテンプレート
   @protected
   Exception fetchError({
     String? details,
     required String? methodName,
   }) =>
-      Exception("FETCH_ERROR: DataRepository.${methodName ?? "??"}\n$details");
+      Exception("FETCH_ERROR: ${methodName ?? "??"}\n$details");
+
+  /// Gateway への登録・保存のエラーの [Exception] のテンプレート
+  @protected
+  Exception saveError({
+    String? details,
+    required String? methodName,
+  }) =>
+      Exception("SAVE_ERROR: ${methodName ?? "??"}\n$details");
 }
