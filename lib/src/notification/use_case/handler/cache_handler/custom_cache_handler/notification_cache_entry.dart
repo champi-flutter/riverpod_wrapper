@@ -9,5 +9,5 @@ class NotificationCacheEntry extends BaseCacheEntry<Notified>{
   NotificationCacheEntry(super.value);
 
   @override
-  void onAccess() {}
+  bool onAccess() =>true;
 }
