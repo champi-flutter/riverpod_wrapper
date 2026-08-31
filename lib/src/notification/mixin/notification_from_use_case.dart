@@ -10,7 +10,7 @@ mixin NotificationFromUseCase {
   // todo 通知関連
   /// エラー通知メソッド
   @protected
-  void _notifyError({
+  void notifyError({
     required String content,
     bool specifiesLayer = false,
   })
@@ -24,7 +24,8 @@ mixin NotificationFromUseCase {
   }
 
   /// リポジトリからのフェッチのエラーの [Exception] のテンプレート
-  Exception _fetchError({
+  @protected
+  Exception fetchError({
     String? details,
     required String? methodName,
   }) =>
