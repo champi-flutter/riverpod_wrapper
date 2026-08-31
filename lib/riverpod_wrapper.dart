@@ -22,6 +22,7 @@ export 'package:riverpod_wrapper/src/notification/type_definition/notification_t
 export 'package:riverpod_wrapper/src/notification/use_case/input_boundary/notification_service.dart';
 // export 'package:riverpod_wrapper/src/notification/view_model/notification_presenter.dart';
 export 'package:riverpod_wrapper/src/notification/view/notification_view.dart';
+export 'package:riverpod_wrapper/src/notification/mixin/notification_from_use_case.dart';
 
 // scaffold_menu_bar
 export 'package:riverpod_wrapper/src/scaffold_menu_bar/gateway/external_launch_repository_impl.dart';
