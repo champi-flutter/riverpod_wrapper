@@ -25,6 +25,7 @@ export 'package:riverpod_wrapper/src/notification/view/notification_view.dart';
 export 'package:riverpod_wrapper/src/notification/mixin/notification_from_use_case.dart';
 export 'package:riverpod_wrapper/src/notification/mixin/notification_from_view_model.dart';
 export 'package:riverpod_wrapper/src/notification/mixin/notification_from_view.dart';
+export 'package:riverpod_wrapper/src/notification/mixin/notification_from_gateway.dart';
 
 // scaffold_menu_bar
 export 'package:riverpod_wrapper/src/scaffold_menu_bar/gateway/external_launch_repository_impl.dart';
