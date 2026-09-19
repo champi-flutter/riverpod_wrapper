@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 整数型自動生成識別子管理オブジェクト
-abstract class AutoIntegerKeyHolder {
+abstract interface class AutoIntegerKeyHolder {
   /// 新しい識別子を作成するメソッド
   ///
   /// 作成した識別子は戻り値として返される。

@@ -47,5 +47,8 @@ export 'package:riverpod_wrapper/src/edit_saved_pop_scope/view_controller/edit_s
 
 // 2026/08/05 追加
 export 'package:riverpod_wrapper/src/key_holder/auto_integer_key_holder.dart';
+export 'package:riverpod_wrapper/src/key_holder/explicit_key_holder.dart';
+export 'package:riverpod_wrapper/src/key_holder/string_key_holder.dart';
+export 'package:riverpod_wrapper/src/key_holder/token_generator.dart';
 
 // todo 新しく追加した場合は、ここに追加（2026/06/06）＞＞

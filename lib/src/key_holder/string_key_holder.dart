@@ -2,7 +2,7 @@ import 'package:custom_core_types/custom_core_types.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 文字列型識別子管理オブジェクト
-abstract class StringKeyHolder {
+abstract interface class StringKeyHolder {
   /// 新しい識別子を作成するメソッド
   Result<void, Exception> add(String key);
 

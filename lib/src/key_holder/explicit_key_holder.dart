@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // todo （2026/08/18）＞＞
 /// エイリアス付き整数型識別子管理オブジェクト
-abstract class ExplicitKeyHolder {
+abstract interface class ExplicitKeyHolder {
 
   /// エイリアスから int の識別子を参照する
   int? key(String alias);
