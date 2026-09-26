@@ -42,7 +42,7 @@ final class NotificationViewModelProvider
 }
 
 String _$notificationViewModelHash() =>
-    r'e1eb73911c5e5e81da9328252ad565fe38684a8e';
+    r'a998f4fbc979b69cabe5f81b1f018f4b2e629040';
 
 abstract class _$NotificationViewModel extends $Notifier<Notified?> {
   Notified? build();

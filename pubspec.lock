@@ -215,10 +215,10 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "1942e44a37e4f5ff8c235be1282806c215ccd6c4"
+      resolved-ref: "48495704b086e4873f304794871e52d639d7234e"
       url: "https://github.com/champi-flutter/custom_widgets.git"
     source: git
-    version: "1.0.0+1"
+    version: "1.0.4+5"
   dart_style:
     dependency: transitive
     description:

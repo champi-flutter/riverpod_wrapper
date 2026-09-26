@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'edit_saving_controller.dart';
+part of 'edit_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,28 +9,28 @@ part of 'edit_saving_controller.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(EditSavingController)
-const editSavingControllerProvider = EditSavingControllerProvider._();
+@ProviderFor(EditViewModel)
+const editViewModelProvider = EditViewModelProvider._();
 
-final class EditSavingControllerProvider
-    extends $NotifierProvider<EditSavingController, bool> {
-  const EditSavingControllerProvider._()
+final class EditViewModelProvider
+    extends $NotifierProvider<EditViewModel, bool> {
+  const EditViewModelProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'editSavingControllerProvider',
+        name: r'editViewModelProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$editSavingControllerHash();
+  String debugGetCreateSourceHash() => _$editViewModelHash();
 
   @$internal
   @override
-  EditSavingController create() => EditSavingController();
+  EditViewModel create() => EditViewModel();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(bool value) {
@@ -41,10 +41,9 @@ final class EditSavingControllerProvider
   }
 }
 
-String _$editSavingControllerHash() =>
-    r'02691ab856c52575326ec6f91cac2027e7538dc2';
+String _$editViewModelHash() => r'3dc9ec81ee013aa51c7b34c96d63a1644d970d45';
 
-abstract class _$EditSavingController extends $Notifier<bool> {
+abstract class _$EditViewModel extends $Notifier<bool> {
   bool build();
   @$mustCallSuper
   @override

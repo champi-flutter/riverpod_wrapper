@@ -1,7 +1,13 @@
+import 'package:custom_widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const TextUtilizerScope(
+      defaultInfo: TextUtilizerDefault(fontSize: 21, designSide: 411.0),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
