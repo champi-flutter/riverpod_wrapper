@@ -2,7 +2,7 @@
 
 import 'package:custom_core_types/custom_core_types.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
-import 'package:riverpod_wrapper/src/notification/use_case/handler/cache_handler/custom_cache_handler/notification_cache_entry.dart';
+import 'package:riverpod_wrapper/src/notification/infrastructure/driver/cache_handler/custom_cache_handler/notification_cache_entry.dart';
 
 class NotificationCache extends BaseCache<int, Notified, NotificationCacheEntry>{
   @override

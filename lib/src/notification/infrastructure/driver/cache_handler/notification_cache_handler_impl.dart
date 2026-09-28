@@ -1,9 +1,11 @@
+import 'package:custom_core_types/custom_core_types.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
+import 'package:riverpod_wrapper/src/notification/infrastructure/driver/cache_handler/notification_cache_handler.dart';
 import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/handler/cache_handler/notification_cache_handler.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/handler/stream_handler/notification_stream_handler.dart';
 
-class NotificationCacheHandlerImpl extends NotificationCacheHandler {
+class NotificationCacheHandlerImpl extends BaseCacheHandler implements NotificationCacheHandler{
   NotificationCacheHandlerImpl({
     required NotificationStreamHandler notificationStreamHandler,
     required AutoIntegerKeyHolder notificationCacheKeyHolder,
