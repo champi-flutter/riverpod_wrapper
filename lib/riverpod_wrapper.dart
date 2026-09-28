@@ -60,4 +60,8 @@ export 'package:riverpod_wrapper/src/key_holder/string_key_holder.dart';
 export 'package:riverpod_wrapper/src/key_holder/token_generator.dart';
 // endregion
 
+// region lazy_view_state
+export 'package:riverpod_wrapper/src/lazy_view_state/lazy_view_state.dart';
+// endregion
+
 // todo 新しく追加した場合は、ここに export 文を追加（2026/06/06）＞＞
