@@ -1,5 +1,5 @@
-import 'package:riverpod_wrapper/src/edit_saved_pop_scope/use_case/output_boundary/edit_presenter.dart';
-import 'package:riverpod_wrapper/src/edit_saved_pop_scope/presentation/view_model/edit_view_model.dart';
+import 'package:riverpod_wrapper/src/alert_saved_scope/presentation/view_model/edit_view_model.dart';
+import 'package:riverpod_wrapper/src/alert_saved_scope/use_case/output_boundary/edit_presenter.dart';
 
 class EditPresenterImpl implements EditPresenter {
   EditPresenterImpl({required EditViewModel editViewModel})

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'edit_saved_pop_scope_providers.dart';
+part of 'alert_saved_scope_providers.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -137,4 +137,4 @@ final class UpdateEditStateUseCaseProvider
 }
 
 String _$updateEditStateUseCaseHash() =>
-    r'f37ff7b3808bfa1611eb40e7a6b58271aed9c7da';
+    r'606be5267003a439d37972bf4e29898f10b98467';

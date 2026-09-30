@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
-import 'package:riverpod_wrapper/src/notification/use_case/handler/cache_handler/notification_cache_handler.dart';
-import 'package:riverpod_wrapper/src/notification/use_case/handler/cache_handler/notification_cache_handler_impl.dart';
+import 'package:riverpod_wrapper/src/notification/infrastructure/driver/cache_handler/notification_cache_handler.dart';
+import 'package:riverpod_wrapper/src/notification/infrastructure/driver/cache_handler/notification_cache_handler_impl.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/handler/stream_handler/notification_stream_handler.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/handler/stream_handler/notification_stream_handler_impl.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/input_boundary/notify_completed_use_case.dart';

@@ -45,12 +45,18 @@ export 'package:riverpod_wrapper/src/clipboard/use_case/clipboard_service.dart';
 export 'package:riverpod_wrapper/src/clipboard/view_model/clipboard_view_model.dart';
 // endregion
 
-// region edit_saved_pop_scope
-export 'package:riverpod_wrapper/src/di/edit_saved_pop_scope_providers/edit_saved_pop_scope_providers.dart';
+// region alert_saved_scope
+export 'package:riverpod_wrapper/src/di/alert_saved_scope_providers/alert_saved_scope_providers.dart';
 // view層とコントローラのみエクスポート
-export 'package:riverpod_wrapper/src/edit_saved_pop_scope/view/edit_saved_pop_scope.dart';
+export 'package:riverpod_wrapper/src/alert_saved_scope/view/alert_unsaved_scope.dart';
 
-export 'package:riverpod_wrapper/src/edit_saved_pop_scope/presentation/controller/edit_controller.dart';
+export 'package:riverpod_wrapper/src/alert_saved_scope/presentation/controller/edit_controller.dart';
+// endregion
+
+// region page_control_scope
+export 'package:riverpod_wrapper/src/di/page_control_scope/page_control_scope_providers.dart';
+export 'package:riverpod_wrapper/src/page_control_scope/view/controlled_page_view.dart';
+export 'package:riverpod_wrapper/src/page_control_scope/presentation/controller/page_navigation_controller.dart';
 // endregion
 
 // region key_holder
