@@ -39,22 +39,11 @@ class AlertUnsavedScopedPageView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 未保存編集 ViewModel をわたされた Token で監視する（未保存の編集があるかどうか）
-    final isEdited = ref.watch(editViewModelProvider(scopeToken));
 
-    // 遷移時の防御を有効にするかどうか（isEdited と 引数で指定する他の条件）
-    final bool isGuardValid = isEdited && !isInvalidByOther;
-
-    return GuardedPageView(
-      isGuardValid: isGuardValid,
+    return ControlledPageView(
       controlledPageList: controlledPageList,
       timeOfNavigation: timeOfNavigation,
       physics: physics,
-      onWillNavigate: (int targetIndex) async {
-        // 編集されていた場合は、ダイアログで確認を促す
-        return await context.confirmToDiscard();
-      },
-      onApproved: onDiscarded,
     );
   }
 }

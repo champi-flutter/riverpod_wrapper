@@ -2,6 +2,7 @@ import 'package:custom_core_types/custom_core_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_wrapper/riverpod_wrapper.dart';
 import 'package:riverpod_wrapper/src/page_control_scope/presentation/view_model/page_index_view_model.dart';
 
 abstract class ControlledPage extends ConsumerWidget {
@@ -77,78 +78,80 @@ class ControlledPageView extends HookConsumerWidget {
   }
 }
 
-/// ページ変更時に確認を挟む [ControlledPageView]
-class GuardedPageView extends ControlledPageView {
-  const GuardedPageView({
-    super.key,
-    required this.isGuardValid,
-    required super.controlledPageList,
-    required this.onWillNavigate,
-    this.onAnyNavigated,
-    this.onApproved,
-    super.timeOfNavigation,
-    super.physics,
-  });
-
-  /// 遷移時の防御を有効にするかどうか
-  final bool isGuardValid;
-
-  /// [targetIndex] に対応するページに遷移する前に起動するコールバック
-  final Future<bool> Function(int targetIndex) onWillNavigate;
-
-  /// [targetIndex] に対応するページに遷移されたあとに起動するコールバック
-  final Future<void> Function(int targetIndex)? onAnyNavigated;
-
-  /// 防御策が起動した上で、遷移が承認された際に起動するコールバック
-  final Future<void> Function(int targetIndex)? onApproved;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // PageViewを制御するためのPageControllerフック
-    final pageController = usePageController(initialPage: 0);
-
-    // VM の状態を監視してページを切り替える
-    ref.listen<int>(pageIndexViewModelProvider, (previous, next) async {
-      // PageController が未アタッチなら StateError
-      if (!pageController.hasClients) {
-        throw StateError("対象の ControlledPageView が見つかりませんでした。");
-      }
-      // すでに目的地ページにいる場合は早期リターン
-      if (pageController.page?.round() == next) {
-        return;
-      }
-
-      if(isGuardValid){
-        // 引数で指定した遷移防御コールバックで、遷移するかを確認する
-        final bool willNavigate = await onWillNavigate(next);
-        // 遷移が承認された場合
-        if(willNavigate){
-          if(onApproved != null){
-            await onApproved!(next);
-          }
-        }
-        // 遷移しない場合
-        else{
-          return;
-        }
-      }
-
-      await pageController.animateToPage(
-        next,
-        duration: Duration(milliseconds: timeOfNavigation),
-        curve: Curves.easeInOut,
-      );
-      // 遷移後のコールバックが指定されている場合は起動する
-      if(onAnyNavigated != null) {
-        await onAnyNavigated!(next);
-      }
-    });
-
-    return PageView.builder(
-      controller: pageController,
-      physics: physics,
-      itemCount: controlledPageList.length,
-      itemBuilder: (_, targetIndex) => controlledPageList[targetIndex].value,
-    );
-  }
-}
+// /// ページ変更時に確認を挟む [ControlledPageView]
+// class GuardedPageView extends ControlledPageView {
+//   const GuardedPageView({
+//     super.key,
+//     required this.isGuardValid,
+//     required super.controlledPageList,
+//     required this.onWillNavigate,
+//     this.onAnyNavigated,
+//     this.onApproved,
+//     super.timeOfNavigation,
+//     super.physics,
+//   });
+//
+//   /// 遷移時の防御を有効にするかどうか
+//   final bool isGuardValid;
+//
+//   /// [targetIndex] に対応するページに遷移する前に起動するコールバック
+//   final Future<bool> Function(int targetIndex) onWillNavigate;
+//
+//   /// [targetIndex] に対応するページに遷移されたあとに起動するコールバック
+//   final Future<void> Function(int targetIndex)? onAnyNavigated;
+//
+//   /// 防御策が起動した上で、遷移が承認された際に起動するコールバック
+//   final Future<void> Function(int targetIndex)? onApproved;
+//
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     // PageViewを制御するためのPageControllerフック
+//     final pageController = usePageController(initialPage: 0);
+//
+//     // VM の状態を監視してページを切り替える
+//     ref.listen<int>(pageIndexViewModelProvider, (previous, next) async {
+//       // PageController が未アタッチなら StateError
+//       if (!pageController.hasClients) {
+//         throw StateError("対象の ControlledPageView が見つかりませんでした。");
+//       }
+//       // すでに目的地ページにいる場合は早期リターン
+//       if (pageController.page?.round() == next) {
+//         return;
+//       }
+//
+//       if(isGuardValid){
+//         // 引数で指定した遷移防御コールバックで、遷移するかを確認する
+//         final bool willNavigate = await onWillNavigate(next);
+//         // 遷移が承認された場合
+//         if(willNavigate){
+//           if(onApproved != null){
+//             await onApproved!(next);
+//           }
+//         }
+//         // 遷移しない場合
+//         else{
+//           // VM の値を元に戻してリターンする
+//           // ref.read(pageNavigationControllerProvider).navigateTo(targetIndex);
+//           return;
+//         }
+//       }
+//
+//       await pageController.animateToPage(
+//         next,
+//         duration: Duration(milliseconds: timeOfNavigation),
+//         curve: Curves.easeInOut,
+//       );
+//       // 遷移後のコールバックが指定されている場合は起動する
+//       if(onAnyNavigated != null) {
+//         await onAnyNavigated!(next);
+//       }
+//     });
+//
+//     return PageView.builder(
+//       controller: pageController,
+//       physics: physics,
+//       itemCount: controlledPageList.length,
+//       itemBuilder: (_, targetIndex) => controlledPageList[targetIndex].value,
+//     );
+//   }
+// }
