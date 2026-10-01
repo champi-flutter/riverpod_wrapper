@@ -3,6 +3,7 @@ import 'package:custom_widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
+import 'package:riverpod_wrapper/src/alert_saved_scope/hook/use_edit_view_model.dart';
 import 'package:riverpod_wrapper/src/di/alert_saved_scope_providers/alert_saved_scope_providers.dart';
 
 extension AlertUnsavedScopeNavigation on BuildContext{
@@ -12,18 +13,20 @@ extension AlertUnsavedScopeNavigation on BuildContext{
   /// [onNavigate] でページ切り替えロジックを設定すること。
   Future<T?> alertUnsaved<T>(
       WidgetRef ref, {
-        required bool isEdited,
+        required EditViewModelToken editState,
         required T Function() onNavigate,
         required void Function()? onDiscarded,
       })
   async {
+    final Token token = editState.token;
+    final bool isEdited = editState.state;
     // 編集されていた場合は、ダイアログで確認を促す
     if (isEdited) {
       // ダイアログで戻ることを確認
       final bool willPop = await confirmToDiscard();
       // 「破棄」を選択した場合
       if (willPop) {
-        ref.read(editControllerProvider).notifyDiscarded();
+        ref.read(editControllerProvider(token)).notifyDiscarded();
         // 追加の処理があれば実行する
         if (onDiscarded != null) {
           onDiscarded();

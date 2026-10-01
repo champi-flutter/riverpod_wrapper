@@ -1,15 +1,27 @@
 import 'package:custom_widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_wrapper/riverpod_wrapper.dart';
+import 'package:riverpod_wrapper/src/alert_saved_scope/hook/use_edit_view_model.dart';
 import 'package:riverpod_wrapper/src/alert_saved_scope/presentation/view_model/edit_view_model.dart';
 import 'package:riverpod_wrapper/src/alert_saved_scope/view/alert_unsaved_scope_navigation.dart';
 
 /// 編集未保存確認クラス
 ///
+/// [scopeToken] に対応する [EditViewModel] の管理するスコープを定義する。
+///
 /// 対象の画面 Widget （[child]）に編集を加えた状態で pop する際に、保存されずに戻るのを
 /// ダイアログで確認して防ぐ。
 class AlertUnsavedScope extends ConsumerWidget {
-  const AlertUnsavedScope({super.key, required this.child, this.onDiscarded});
+  const AlertUnsavedScope({
+    super.key,
+    required this.child,
+    required this.scopeToken,
+    this.onDiscarded,
+  });
+
+  /// 対象スコープの [EditViewModel] の [Token]
+  final Token scopeToken;
 
   final Widget child;
 
@@ -19,8 +31,8 @@ class AlertUnsavedScope extends ConsumerWidget {
   // todo build
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 現在表示している画面に、未保存の編集があるかどうか
-    final isEdited = ref.watch(editViewModelProvider);
+    // 未保存編集 ViewModel をわたされた Token で監視する（未保存の編集があるかどうか）
+    final isEdited = ref.watch(editViewModelProvider(scopeToken));
     return SafeArea(
       child: PopScope(
         canPop: false,
@@ -29,9 +41,8 @@ class AlertUnsavedScope extends ConsumerWidget {
           // 編集されていた場合は、ダイアログで確認を促す
           await context.alertUnsaved(
             ref,
-            isEdited: isEdited,
-            onNavigate: () =>
-                Navigator.of(context).popWithUnfocus(),
+            editState: EditViewModelToken(scopeToken, isEdited),
+            onNavigate: () => Navigator.of(context).popWithUnfocus(),
             onDiscarded: onDiscarded,
           );
         },

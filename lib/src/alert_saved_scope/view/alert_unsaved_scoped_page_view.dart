@@ -1,6 +1,8 @@
 import 'package:custom_widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_wrapper/riverpod_wrapper.dart';
+import 'package:riverpod_wrapper/src/alert_saved_scope/hook/use_edit_view_model.dart';
 import 'package:riverpod_wrapper/src/alert_saved_scope/presentation/view_model/edit_view_model.dart';
 import 'package:riverpod_wrapper/src/alert_saved_scope/view/alert_unsaved_scope_navigation.dart';
 import 'package:riverpod_wrapper/src/page_control_scope/view/controlled_page_view.dart';
@@ -8,12 +10,16 @@ import 'package:riverpod_wrapper/src/page_control_scope/view/controlled_page_vie
 class AlertUnsavedScopedPageView extends HookConsumerWidget {
   const AlertUnsavedScopedPageView({
     super.key,
+    required this.scopeToken,
     required this.controlledPageList,
     required this.onDiscarded,
     this.timeOfNavigation = 300,
     this.physics,
     this.isInvalidByOther = false,
   });
+
+  /// 対象スコープの [EditViewModel] の [Token]
+  final Token scopeToken;
 
   /// 対象のページのリスト
   ///
@@ -33,9 +39,8 @@ class AlertUnsavedScopedPageView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-    // 未保存の編集があるかどうか
-    final bool isEdited = ref.watch(editViewModelProvider);
+    // 未保存編集 ViewModel をわたされた Token で監視する（未保存の編集があるかどうか）
+    final isEdited = ref.watch(editViewModelProvider(scopeToken));
 
     // 遷移時の防御を有効にするかどうか（isEdited と 引数で指定する他の条件）
     final bool isGuardValid = isEdited && !isInvalidByOther;

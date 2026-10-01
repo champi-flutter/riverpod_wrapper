@@ -42,7 +42,7 @@ final class PageIndexViewModelProvider
 }
 
 String _$pageIndexViewModelHash() =>
-    r'fb24a8a381f3b36277463a9ed6a42ff1a3c8a7a6';
+    r'bc7595d2732166d93c694544d4709a9b0fa6fc6f';
 
 abstract class _$PageIndexViewModel extends $Notifier<int> {
   int build();

@@ -10,24 +10,31 @@ part of 'alert_saved_scope_providers.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(editController)
-const editControllerProvider = EditControllerProvider._();
+const editControllerProvider = EditControllerFamily._();
 
 final class EditControllerProvider
     extends $FunctionalProvider<EditController, EditController, EditController>
     with $Provider<EditController> {
-  const EditControllerProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'editControllerProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  const EditControllerProvider._({
+    required EditControllerFamily super.from,
+    required Token super.argument,
+  }) : super(
+         retry: null,
+         name: r'editControllerProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$editControllerHash();
+
+  @override
+  String toString() {
+    return r'editControllerProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
@@ -36,7 +43,8 @@ final class EditControllerProvider
 
   @override
   EditController create(Ref ref) {
-    return editController(ref);
+    final argument = this.argument as Token;
+    return editController(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -46,29 +54,64 @@ final class EditControllerProvider
       providerOverride: $SyncValueProvider<EditController>(value),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is EditControllerProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
-String _$editControllerHash() => r'62f73667b45b3ed4023559fad3eb118a1c7cbccb';
+String _$editControllerHash() => r'1277d805159dc8c56598b04d3d0bc801c3ed8775';
+
+final class EditControllerFamily extends $Family
+    with $FunctionalFamilyOverride<EditController, Token> {
+  const EditControllerFamily._()
+    : super(
+        retry: null,
+        name: r'editControllerProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  EditControllerProvider call(Token token) =>
+      EditControllerProvider._(argument: token, from: this);
+
+  @override
+  String toString() => r'editControllerProvider';
+}
 
 @ProviderFor(editPresenter)
-const editPresenterProvider = EditPresenterProvider._();
+const editPresenterProvider = EditPresenterFamily._();
 
 final class EditPresenterProvider
     extends $FunctionalProvider<EditPresenter, EditPresenter, EditPresenter>
     with $Provider<EditPresenter> {
-  const EditPresenterProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'editPresenterProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  const EditPresenterProvider._({
+    required EditPresenterFamily super.from,
+    required Token super.argument,
+  }) : super(
+         retry: null,
+         name: r'editPresenterProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$editPresenterHash();
+
+  @override
+  String toString() {
+    return r'editPresenterProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
@@ -77,7 +120,8 @@ final class EditPresenterProvider
 
   @override
   EditPresenter create(Ref ref) {
-    return editPresenter(ref);
+    final argument = this.argument as Token;
+    return editPresenter(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -87,12 +131,40 @@ final class EditPresenterProvider
       providerOverride: $SyncValueProvider<EditPresenter>(value),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is EditPresenterProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
-String _$editPresenterHash() => r'92b0ec4d8e404c6ebd98fc35f3ed3e5b326a2f41';
+String _$editPresenterHash() => r'701a31b3a817b5ae881f7102955cfbbdd3cb9153';
+
+final class EditPresenterFamily extends $Family
+    with $FunctionalFamilyOverride<EditPresenter, Token> {
+  const EditPresenterFamily._()
+    : super(
+        retry: null,
+        name: r'editPresenterProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  EditPresenterProvider call(Token token) =>
+      EditPresenterProvider._(argument: token, from: this);
+
+  @override
+  String toString() => r'editPresenterProvider';
+}
 
 @ProviderFor(updateEditStateUseCase)
-const updateEditStateUseCaseProvider = UpdateEditStateUseCaseProvider._();
+const updateEditStateUseCaseProvider = UpdateEditStateUseCaseFamily._();
 
 final class UpdateEditStateUseCaseProvider
     extends
@@ -102,19 +174,26 @@ final class UpdateEditStateUseCaseProvider
           UpdateEditStateUseCase
         >
     with $Provider<UpdateEditStateUseCase> {
-  const UpdateEditStateUseCaseProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'updateEditStateUseCaseProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  const UpdateEditStateUseCaseProvider._({
+    required UpdateEditStateUseCaseFamily super.from,
+    required Token super.argument,
+  }) : super(
+         retry: null,
+         name: r'updateEditStateUseCaseProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$updateEditStateUseCaseHash();
+
+  @override
+  String toString() {
+    return r'updateEditStateUseCaseProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
@@ -124,7 +203,8 @@ final class UpdateEditStateUseCaseProvider
 
   @override
   UpdateEditStateUseCase create(Ref ref) {
-    return updateEditStateUseCase(ref);
+    final argument = this.argument as Token;
+    return updateEditStateUseCase(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -134,7 +214,36 @@ final class UpdateEditStateUseCaseProvider
       providerOverride: $SyncValueProvider<UpdateEditStateUseCase>(value),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpdateEditStateUseCaseProvider &&
+        other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$updateEditStateUseCaseHash() =>
-    r'606be5267003a439d37972bf4e29898f10b98467';
+    r'88b578a7a001b0566ed1014f367f87435c631ee2';
+
+final class UpdateEditStateUseCaseFamily extends $Family
+    with $FunctionalFamilyOverride<UpdateEditStateUseCase, Token> {
+  const UpdateEditStateUseCaseFamily._()
+    : super(
+        retry: null,
+        name: r'updateEditStateUseCaseProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  UpdateEditStateUseCaseProvider call(Token token) =>
+      UpdateEditStateUseCaseProvider._(argument: token, from: this);
+
+  @override
+  String toString() => r'updateEditStateUseCaseProvider';
+}

@@ -52,6 +52,8 @@ export 'package:riverpod_wrapper/src/alert_saved_scope/view/alert_unsaved_scope.
 export 'package:riverpod_wrapper/src/alert_saved_scope/view/alert_unsaved_scoped_page_view.dart';
 
 export 'package:riverpod_wrapper/src/alert_saved_scope/presentation/controller/edit_controller.dart';
+
+export 'package:riverpod_wrapper/src/alert_saved_scope/presentation/view_model/edit_view_model.dart';
 // endregion
 
 // region page_control_scope

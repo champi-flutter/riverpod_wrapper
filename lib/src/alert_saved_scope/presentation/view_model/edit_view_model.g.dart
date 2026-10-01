@@ -10,23 +10,30 @@ part of 'edit_view_model.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(EditViewModel)
-const editViewModelProvider = EditViewModelProvider._();
+const editViewModelProvider = EditViewModelFamily._();
 
 final class EditViewModelProvider
     extends $NotifierProvider<EditViewModel, bool> {
-  const EditViewModelProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'editViewModelProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  const EditViewModelProvider._({
+    required EditViewModelFamily super.from,
+    required Token super.argument,
+  }) : super(
+         retry: null,
+         name: r'editViewModelProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$editViewModelHash();
+
+  @override
+  String toString() {
+    return r'editViewModelProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
@@ -39,16 +46,47 @@ final class EditViewModelProvider
       providerOverride: $SyncValueProvider<bool>(value),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is EditViewModelProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
-String _$editViewModelHash() => r'3dc9ec81ee013aa51c7b34c96d63a1644d970d45';
+String _$editViewModelHash() => r'65378545b2d5b33e5d279ebf0ad6d6ed1acc0f53';
+
+final class EditViewModelFamily extends $Family
+    with $ClassFamilyOverride<EditViewModel, bool, bool, bool, Token> {
+  const EditViewModelFamily._()
+    : super(
+        retry: null,
+        name: r'editViewModelProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  EditViewModelProvider call(Token token) =>
+      EditViewModelProvider._(argument: token, from: this);
+
+  @override
+  String toString() => r'editViewModelProvider';
+}
 
 abstract class _$EditViewModel extends $Notifier<bool> {
-  bool build();
+  late final _$args = ref.$arg as Token;
+  Token get token => _$args;
+
+  bool build(Token token);
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
+    final created = build(_$args);
     final ref = this.ref as $Ref<bool, bool>;
     final element =
         ref.element
