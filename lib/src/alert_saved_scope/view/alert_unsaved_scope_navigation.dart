@@ -20,7 +20,7 @@ extension AlertUnsavedScopeNavigation on BuildContext{
     // 編集されていた場合は、ダイアログで確認を促す
     if (isEdited) {
       // ダイアログで戻ることを確認
-      final bool willPop = await _confirmToDiscard();
+      final bool willPop = await confirmToDiscard();
       // 「破棄」を選択した場合
       if (willPop) {
         ref.read(editControllerProvider).notifyDiscarded();
@@ -46,7 +46,7 @@ extension AlertUnsavedScopeNavigation on BuildContext{
   ///
   ///  - [barrierDismissible]: `true` なら、枠外タップで 「編集を続ける」に、 `false`
   ///  なら枠外タップを無効にする（デフォルトは `true`）
-  Future<bool> _confirmToDiscard({
+  Future<bool> confirmToDiscard({
         bool barrierDismissible = true,
       })
 // 折りたたみ用
@@ -70,7 +70,7 @@ extension AlertUnsavedScopeNavigation on BuildContext{
               onPressed: () {
                 Navigator.of(dialogContext).pop(true);
               },
-              child: Text("破棄"),
+              child: UtilizedText("破棄"),
             ),
           ],
         );
