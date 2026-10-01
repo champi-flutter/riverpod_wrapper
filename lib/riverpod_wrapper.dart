@@ -57,9 +57,13 @@ export 'package:riverpod_wrapper/src/alert_saved_scope/presentation/view_model/e
 // endregion
 
 // region page_control_scope
+// di
 export 'package:riverpod_wrapper/src/di/page_control_scope/page_control_scope_providers.dart';
+// view
 export 'package:riverpod_wrapper/src/page_control_scope/view/controlled_page_view.dart';
+// presentation
 export 'package:riverpod_wrapper/src/page_control_scope/presentation/controller/page_navigation_controller.dart';
+export 'package:riverpod_wrapper/src/page_control_scope/presentation/view_model/page_index_view_model.dart';
 // endregion
 
 // region key_holder
