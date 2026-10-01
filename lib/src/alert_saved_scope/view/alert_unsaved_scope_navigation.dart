@@ -7,6 +7,9 @@ import 'package:riverpod_wrapper/src/di/alert_saved_scope_providers/alert_saved_
 
 extension AlertUnsavedScopeNavigation on BuildContext{
 
+  /// ページ切り替え時に未保存の編集がある場合に確認を促す
+  ///
+  /// [onNavigate] でページ切り替えロジックを設定すること。
   Future<T?> alertUnsaved<T>(
       WidgetRef ref, {
         required bool isEdited,

@@ -11,27 +11,24 @@ import 'package:riverpod_wrapper/src/page_control_scope/view/controlled_page_vie
 class AlertUnsavedScopedPageView extends HookConsumerWidget {
   const AlertUnsavedScopedPageView({
     super.key,
-    required this.controlledPageList,
-    required this.topNavigationBuilder,
-    required this.bottomNavigationBuilder,
-    this.timeOfNavigation = 300,
+    // required this.controlledPageList,
+    // required this.topNavigationBuilder,
+    // required this.bottomNavigationBuilder,
+    // this.timeOfNavigation = 300,
     this.onDiscarded,
-  }) : assert(
-         controlledPageList.length > 0,
-         "[AlertUnsavedScopedPageView] 無効な値です（controlledPageList.length = $controlledPageList.length）",
-       );
+  });
 
   const AlertUnsavedScopedPageView.withChips({
     super.key,
-    required this.controlledPageList,
-    this.timeOfNavigation = 300,
+    // required this.controlledPageList,
+    // this.timeOfNavigation = 300,
     this.onDiscarded,
-    required this.bottomNavigationBuilder,
+    // required this.bottomNavigationBuilder,
   }) : assert(
   controlledPageList.length > 0,
          "[AlertUnsavedScopedPageView] 無効な値です（controlledPageList.length = $controlledPageList.length）",
-       ),
-       topNavigationBuilder = _NavigationChips.builder;
+       );
+       // topNavigationBuilder = _NavigationChips.builder;
 
   // /// PageView の index に対応する画面を返す関数
   // final Widget Function(BuildContext context, int index) pageBuilder;
@@ -45,86 +42,72 @@ class AlertUnsavedScopedPageView extends HookConsumerWidget {
   // /// 画面クラスの名前のリスト
   // final List<String> pageNameList;
 
-  final int timeOfNavigation;
+  // final int timeOfNavigation;
 
-  /// 対象のページのリスト
-  ///
-  /// 各ページは、[ControlledPage] を継承させること
-  final List<ControlledPage> controlledPageList;
+  // /// 対象のページのリスト
+  // ///
+  // /// 各ページは、[ControlledPage] を継承させること
+  // final List<ControlledPage> controlledPageList;
 
-  ///　このクラス内の画面を操作するナビゲータのうちの上側のナビゲータ
-  final AlertUnsavedScopedPagesTopNavigationWidget Function({
-    required int selectedIndex,
-    required List<ControlledPage> controlledPageList,
-    required void Function(int) onNavigate,
-  })?
-  topNavigationBuilder;
-
-  ///　このクラス内の画面を操作するナビゲータのうちの上側のナビゲータ
-  final AlertUnsavedScopedPagesBottomNavigationWidget Function({
-  required int selectedIndex,
-  required List<ControlledPage> controlledPageList,
-  required void Function(int) onNavigate,
-  })?
-  bottomNavigationBuilder;
+  // ///　このクラス内の画面を操作するナビゲータのうちの上側のナビゲータ
+  // final AlertUnsavedScopedPagesTopNavigationWidget Function({
+  //   required int selectedIndex,
+  //   required List<ControlledPage> controlledPageList,
+  //   required void Function(int) onNavigate,
+  // })?
+  // topNavigationBuilder;
+  //
+  // ///　このクラス内の画面を操作するナビゲータのうちの上側のナビゲータ
+  // final AlertUnsavedScopedPagesBottomNavigationWidget Function({
+  // required int selectedIndex,
+  // required List<ControlledPage> controlledPageList,
+  // required void Function(int) onNavigate,
+  // })?
+  // bottomNavigationBuilder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
+    // ControlledPageView で選択せれているページのインデックス
     final int currentPageIndex = ref.watch(pageIndexViewModelProvider);
 
-    final bool isEdited = ref.watch(editViewModelProvider);
-
+    // 未保存の編集を破棄する際に呼ばれるコールバック
     final onCurrentPageDiscarded = onDiscarded == null
         ? null
         : () => onDiscarded!(currentPageIndex);
 
-    /// ページ切り替えを安全に行う関数
-    Future<void> onControlPage(int targetIndex) async {
-      // 現在のページと同じ場合は何もしない
-      if (currentPageIndex == targetIndex) return;
-      await context.alertUnsaved(
-        ref,
-        isEdited: isEdited,
-        onNavigate: () {
-          ref.read(pageNavigationControllerProvider).navigateTo(targetIndex);
-        },
-        onDiscarded: onCurrentPageDiscarded,
-      );
-    }
+    // // ページ切り替えを安全に行う関数
+    // Future<void> onControlPage(int targetIndex) async {
+    //   // 現在のページと同じ場合は何もしない
+    //   if (currentPageIndex == targetIndex) return;
+    //   await context.alertUnsaved(
+    //     ref,
+    //     isEdited: isEdited,
+    //     onNavigate: () {
+    //       ref.read(pageNavigationControllerProvider).navigateTo(targetIndex);
+    //     },
+    //     onDiscarded: onCurrentPageDiscarded,
+    //   );
+    // }
 
-    //　上側のナビゲータ
-    final topNavigation = topNavigationBuilder == null? null : topNavigationBuilder!(
-      selectedIndex: currentPageIndex,
-      controlledPageList: controlledPageList,
-      onNavigate: onControlPage,
-    );
-
-    //　下側のナビゲータ
-    final bottomNavigation = bottomNavigationBuilder == null? null : bottomNavigationBuilder!(
-      selectedIndex: currentPageIndex,
-      controlledPageList: controlledPageList,
-      onNavigate: onControlPage,
-    );
+    // //　上側のナビゲータ
+    // final topNavigation = topNavigationBuilder == null? null : topNavigationBuilder!(
+    //   selectedIndex: currentPageIndex,
+    //   controlledPageList: controlledPageList,
+    //   onNavigate: onControlPage,
+    // );
+    //
+    // //　下側のナビゲータ
+    // final bottomNavigation = bottomNavigationBuilder == null? null : bottomNavigationBuilder!(
+    //   selectedIndex: currentPageIndex,
+    //   controlledPageList: controlledPageList,
+    //   onNavigate: onControlPage,
+    // );
 
     // このラッパのスコープ自体が破棄されそうになった場合もブロックする
     return AlertUnsavedScope(
       onDiscarded: onCurrentPageDiscarded,
-      child: Column(
-        children: [
-          // todo nullable（2026/09/30）＞＞　
-          topNavigation??Container(),
-          Expanded(
-            child: ControlledPageView(
-              controlledPageList: controlledPageList,
-              timeOfNavigation: timeOfNavigation,
-              // 手動スワイプでの切り替えを無効化（誤操作とダイアログ競合の防止）
-              physics: const NeverScrollableScrollPhysics(),
-            ),
-          ),
-          bottomNavigation??Container(),
-        ],
-      ),
+      child: ,
     );
   }
 }
