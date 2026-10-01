@@ -12,8 +12,8 @@ class PageNavigationController {
   Future<void> navigateWithGuardTo(int targetIndex, {
     bool isGuardValid = true,
     required Future<bool> Function() onWillNavigate,
-    required Future<void> Function()? onAnyNavigated,
-    required Future<void> Function()? onApproved,
+    Future<void> Function()? onAnyNavigated,
+    Future<void> Function()? onApproved,
   }) async {
     if (isGuardValid) {
       // 引数で指定した遷移防御コールバックで、遷移するかを確認する
