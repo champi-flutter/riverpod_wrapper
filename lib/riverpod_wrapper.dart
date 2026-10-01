@@ -49,6 +49,7 @@ export 'package:riverpod_wrapper/src/clipboard/view_model/clipboard_view_model.d
 export 'package:riverpod_wrapper/src/di/alert_saved_scope_providers/alert_saved_scope_providers.dart';
 // view層とコントローラのみエクスポート
 export 'package:riverpod_wrapper/src/alert_saved_scope/view/alert_unsaved_scope.dart';
+export 'package:riverpod_wrapper/src/alert_saved_scope/view/alert_unsaved_scoped_page_view.dart';
 
 export 'package:riverpod_wrapper/src/alert_saved_scope/presentation/controller/edit_controller.dart';
 // endregion
