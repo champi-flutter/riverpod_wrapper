@@ -48,7 +48,7 @@ class ControlledPageView extends HookConsumerWidget {
     this.physics,
     required this.scopeToken,
   }) : isAlertValid = false,
-       onWillPop = ((_) async => true), onDiscarded = ((_){});
+        onDiscarded = ((_){});
 
   /// ページを変更する際、何らかの確認（[onWillPop]）を挟むコンストラクタ
   ///
@@ -63,7 +63,6 @@ class ControlledPageView extends HookConsumerWidget {
     this.timeOfNavigation = 300,
     this.physics,
     required this.scopeToken,
-    required this.onWillPop,
     required this.onDiscarded,
   });
 
@@ -87,8 +86,8 @@ class ControlledPageView extends HookConsumerWidget {
   /// 確認ダイアログで、「破棄」を選択した場合に呼ばれるコールバック
   final void Function(int targetIndex) onDiscarded;
 
-  /// 各ページが遷移しようとしたときに、遷移するかどうかを決める非同期のコールバック
-  final Future<bool> Function(BuildContext) onWillPop;
+  // /// 各ページが遷移しようとしたときに、遷移するかどうかを決める非同期のコールバック
+  // final Future<bool> Function(BuildContext) onWillPop;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
