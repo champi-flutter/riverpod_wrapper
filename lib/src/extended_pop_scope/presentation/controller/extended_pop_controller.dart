@@ -1,7 +1,7 @@
 import 'package:riverpod_wrapper/src/extended_pop_scope/presentation/view_model/scope_focus_view_model.dart';
 
-class PopScopeFocusController {
-  PopScopeFocusController({
+class ExtendedPopController {
+  ExtendedPopController({
     required  ScopeFocusViewModel scopeFocusViewModelNotifier,
   }) : _scopeFocusViewModel = scopeFocusViewModelNotifier;
 

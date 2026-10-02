@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
 import 'package:riverpod_wrapper/src/page_control_scope/presentation/view_model/page_index_view_model.dart';
+import 'package:riverpod_wrapper/src/page_control_scope/presentation/view_state/page_index_state.dart';
 
 abstract class ControlledPage extends ConsumerWidget {
   const ControlledPage({super.key});
@@ -19,7 +20,7 @@ abstract class ControlledPage extends ConsumerWidget {
 /// [ControlledPageView] で表示される [ControlledPage] の固定長リスト
 class ControlledPageList extends FixedList<ControlledPage> {
   ControlledPageList(List<ControlledPage> pageList)
-      : super.fromIterable(pageList.length, pageList);
+    : super.fromIterable(pageList.length, pageList);
 
   ControlledPageList._copy(super.list) : super.copy();
 
@@ -27,12 +28,43 @@ class ControlledPageList extends FixedList<ControlledPage> {
   ControlledPageList get deepCopy => ControlledPageList._copy(toEntryList());
 }
 
+/// 外部の操作によりページを変更する PageView
+///
+/// [ControlledPage] を継承したページクラスのリスト（[controlledPageList]）を管理する。
+///
+/// スクロールによるページの変更を制御したい場合は、[physics] を指定すること。
+///
+/// ここで管理するページは、ここで指定した [scopeToken] を用いて、外部から以下のように操作
+/// できる。
+/// ```
+/// ref.read(pageNavigationControllerProvider(scopeToken)).navigateAnywayTo(targetIndex);
+/// ```
 class ControlledPageView extends HookConsumerWidget {
-  const ControlledPageView({
+
+  ControlledPageView({
     super.key,
     required this.controlledPageList,
     this.timeOfNavigation = 300,
     this.physics,
+    required this.scopeToken,
+  }) : isAlertValid = false,
+       onWillPop = ((_) async => true), onDiscarded = ((_){});
+
+  /// ページを変更する際、何らかの確認（[onWillPop]）を挟むコンストラクタ
+  ///
+  /// このコンストラクタで指定した対象は、外部から以下のように操作する。
+  /// ```
+  /// ref.read(pageNavigationControllerProvider(scopeToken)).navigateWithGuardTo(targetIndex);
+  /// ```
+  const ControlledPageView.withGuard({
+    super.key,
+    required this.isAlertValid,
+    required this.controlledPageList,
+    this.timeOfNavigation = 300,
+    this.physics,
+    required this.scopeToken,
+    required this.onWillPop,
+    required this.onDiscarded,
   });
 
   /// 対象のページのリスト
@@ -46,24 +78,47 @@ class ControlledPageView extends HookConsumerWidget {
   /// スワイプ時の挙動
   final ScrollPhysics? physics;
 
+  /// 対象スコープで管理する [Token]
+  final Token scopeToken;
+
+  /// 確認を有効にするかどうか
+  final bool isAlertValid;
+
+  /// 確認ダイアログで、「破棄」を選択した場合に呼ばれるコールバック
+  final void Function(int targetIndex) onDiscarded;
+
+  /// 各ページが遷移しようとしたときに、遷移するかどうかを決める非同期のコールバック
+  final Future<bool> Function(BuildContext) onWillPop;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // PageViewを制御するためのPageControllerフック
     final pageController = usePageController(initialPage: 0);
 
     // VM の状態を監視してページを切り替える
-    ref.listen<int>(pageIndexViewModelProvider, (previous, next) {
+    ref.listen<PageIndexState>(pageIndexViewModelProvider(scopeToken), (
+      previous,
+      next,
+    ) {
       // PageController が未アタッチなら StateError
       if (!pageController.hasClients) {
         throw StateError("対象の ControlledPageView が見つかりませんでした。");
       }
+
+      // pend 中なら早期リターン
+      if (next.pendingIndex != null) {
+        return;
+      }
+
+      final targetPageIndex = next.currentIndex;
+
       // すでに目的地ページにいる場合は早期リターン
-      if (pageController.page?.round() == next) {
+      if (pageController.page?.round() == targetPageIndex) {
         return;
       }
 
       pageController.animateToPage(
-        next,
+        targetPageIndex,
         duration: Duration(milliseconds: timeOfNavigation),
         curve: Curves.easeInOut,
       );
@@ -73,7 +128,17 @@ class ControlledPageView extends HookConsumerWidget {
       controller: pageController,
       physics: physics,
       itemCount: controlledPageList.length,
-      itemBuilder: (_, targetIndex) => controlledPageList[targetIndex].value,
+      // 各ページのスコープで遷移を制御する
+      itemBuilder: (_, targetIndex) => AlertUnsavedScope.extendPopDef(
+        // 一度に制御するページは1つなので、Token は呼び出し元で一元管理
+        scopeToken: scopeToken,
+        isAlertValid: isAlertValid,
+        onDiscarded: () => onDiscarded(targetIndex),
+        extendedPop: (_) {
+          ref.read(pendingNavigationControllerProvider(scopeToken)).approveNavigation();
+        },
+        child: controlledPageList[targetIndex].value,
+      ),
     );
   }
 }
@@ -107,7 +172,6 @@ class ControlledPageView extends HookConsumerWidget {
 //     );
 //   }
 // }
-
 
 // /// ページ変更時に確認を挟む [ControlledPageView]
 // class GuardedPageView extends ControlledPageView {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_wrapper/riverpod_wrapper.dart';
 import 'package:riverpod_wrapper/src/di/extended_pop_scope_providers/extended_pop_scope_providers.dart';
 import 'package:riverpod_wrapper/src/extended_pop_scope/presentation/view_model/scope_focus_view_model.dart';
 
@@ -11,10 +12,13 @@ class ExtendedPopScope extends ConsumerWidget {
     required this.willPopWithAny,
     required this.onWillPop,
     this.onPoppedExplicitly,
-    required this.pop,
+    required this.pop, required this.scopeToken,
   });
 
   final Widget child;
+
+  /// 対象スコープの の [Token]
+  final Token scopeToken;
 
   /// 無条件で遷移するかどうか
   final bool willPopWithAny;
@@ -31,7 +35,7 @@ class ExtendedPopScope extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // このスコープのフォーカス状態を監視する
-    ref.listen(scopeFocusViewModelProvider, (
+    ref.listen(scopeFocusViewModelProvider(scopeToken), (
       previous,
       next,
     ) async {
@@ -53,7 +57,7 @@ class ExtendedPopScope extends ConsumerWidget {
           }
           // 画面遷移が承認されたことを伝える
           if(context.mounted) {
-            ref.read(popScopeFocusControllerProvider).approvePop();
+            ref.read(extendedPopControllerProvider(scopeToken)).approvePop();
           }
         // VM の状態が popApproved に変わったとき、引数で指定された遷移処理を起動する
         case ScopeStatus.popApproved:

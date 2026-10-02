@@ -57,6 +57,7 @@ class AlertUnsavedScope extends ConsumerWidget {
         onWillPop: (BuildContext context)=>context.confirmToDiscard(),
         onPoppedExplicitly: onDiscarded,
         pop: _extendedPop,
+        scopeToken: scopeToken,
       );
     }
     return PopScope(

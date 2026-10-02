@@ -72,7 +72,7 @@ export 'package:riverpod_wrapper/src/di/extended_pop_scope_providers/extended_po
 // view
 export 'package:riverpod_wrapper/src/extended_pop_scope/view/extended_pop_scope.dart';
 // presentation
-export 'package:riverpod_wrapper/src/extended_pop_scope/presentation/controller/pop_scope_focus_controller.dart';
+export 'package:riverpod_wrapper/src/extended_pop_scope/presentation/controller/extended_pop_controller.dart';
 // endregion
 
 // region key_holder

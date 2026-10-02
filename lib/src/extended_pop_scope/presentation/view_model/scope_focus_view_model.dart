@@ -1,6 +1,7 @@
 
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:riverpod_wrapper/riverpod_wrapper.dart';
 
 part 'scope_focus_view_model.g.dart';
 
@@ -19,7 +20,7 @@ enum ScopeStatus{
 class ScopeFocusViewModel extends _$ScopeFocusViewModel {
 
   @override
-  ScopeStatus build()=>ScopeStatus.focused;
+  ScopeStatus build(Token token)=>ScopeStatus.focused;
 
   void update(ScopeStatus newState){
     if(state != newState){

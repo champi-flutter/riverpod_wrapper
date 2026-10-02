@@ -9,50 +9,86 @@ part of 'extended_pop_scope_providers.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(popScopeFocusController)
-const popScopeFocusControllerProvider = PopScopeFocusControllerProvider._();
+@ProviderFor(extendedPopController)
+const extendedPopControllerProvider = ExtendedPopControllerFamily._();
 
-final class PopScopeFocusControllerProvider
+final class ExtendedPopControllerProvider
     extends
         $FunctionalProvider<
-          PopScopeFocusController,
-          PopScopeFocusController,
-          PopScopeFocusController
+          ExtendedPopController,
+          ExtendedPopController,
+          ExtendedPopController
         >
-    with $Provider<PopScopeFocusController> {
-  const PopScopeFocusControllerProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'popScopeFocusControllerProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+    with $Provider<ExtendedPopController> {
+  const ExtendedPopControllerProvider._({
+    required ExtendedPopControllerFamily super.from,
+    required Token super.argument,
+  }) : super(
+         retry: null,
+         name: r'extendedPopControllerProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
-  String debugGetCreateSourceHash() => _$popScopeFocusControllerHash();
+  String debugGetCreateSourceHash() => _$extendedPopControllerHash();
+
+  @override
+  String toString() {
+    return r'extendedPopControllerProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
-  $ProviderElement<PopScopeFocusController> $createElement(
+  $ProviderElement<ExtendedPopController> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  PopScopeFocusController create(Ref ref) {
-    return popScopeFocusController(ref);
+  ExtendedPopController create(Ref ref) {
+    final argument = this.argument as Token;
+    return extendedPopController(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(PopScopeFocusController value) {
+  Override overrideWithValue(ExtendedPopController value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<PopScopeFocusController>(value),
+      providerOverride: $SyncValueProvider<ExtendedPopController>(value),
     );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ExtendedPopControllerProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
   }
 }
 
-String _$popScopeFocusControllerHash() =>
-    r'7868bfeec2d81d313e48864deeef3b5d4a8364fb';
+String _$extendedPopControllerHash() =>
+    r'8bed15689cea748dc037e248c045d05f3b83a9b5';
+
+final class ExtendedPopControllerFamily extends $Family
+    with $FunctionalFamilyOverride<ExtendedPopController, Token> {
+  const ExtendedPopControllerFamily._()
+    : super(
+        retry: null,
+        name: r'extendedPopControllerProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  ExtendedPopControllerProvider call(Token token) =>
+      ExtendedPopControllerProvider._(argument: token, from: this);
+
+  @override
+  String toString() => r'extendedPopControllerProvider';
+}

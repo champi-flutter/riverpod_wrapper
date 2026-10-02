@@ -10,7 +10,7 @@ part of 'page_control_scope_providers.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(pageNavigationController)
-const pageNavigationControllerProvider = PageNavigationControllerProvider._();
+const pageNavigationControllerProvider = PageNavigationControllerFamily._();
 
 final class PageNavigationControllerProvider
     extends
@@ -20,19 +20,26 @@ final class PageNavigationControllerProvider
           PageNavigationController
         >
     with $Provider<PageNavigationController> {
-  const PageNavigationControllerProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'pageNavigationControllerProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  const PageNavigationControllerProvider._({
+    required PageNavigationControllerFamily super.from,
+    required Token super.argument,
+  }) : super(
+         retry: null,
+         name: r'pageNavigationControllerProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$pageNavigationControllerHash();
+
+  @override
+  String toString() {
+    return r'pageNavigationControllerProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
@@ -42,7 +49,8 @@ final class PageNavigationControllerProvider
 
   @override
   PageNavigationController create(Ref ref) {
-    return pageNavigationController(ref);
+    final argument = this.argument as Token;
+    return pageNavigationController(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -52,103 +60,122 @@ final class PageNavigationControllerProvider
       providerOverride: $SyncValueProvider<PageNavigationController>(value),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PageNavigationControllerProvider &&
+        other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$pageNavigationControllerHash() =>
-    r'900bc0e9c85ccfd7ff0b5d8164b007065ef4259a';
+    r'250c3ebbb6501faa220b6ca9dc8110d65abf5ca7';
 
-@ProviderFor(pageNavigationPresenter)
-const pageNavigationPresenterProvider = PageNavigationPresenterProvider._();
-
-final class PageNavigationPresenterProvider
-    extends
-        $FunctionalProvider<
-          PageNavigationPresenter,
-          PageNavigationPresenter,
-          PageNavigationPresenter
-        >
-    with $Provider<PageNavigationPresenter> {
-  const PageNavigationPresenterProvider._()
+final class PageNavigationControllerFamily extends $Family
+    with $FunctionalFamilyOverride<PageNavigationController, Token> {
+  const PageNavigationControllerFamily._()
     : super(
-        from: null,
-        argument: null,
         retry: null,
-        name: r'pageNavigationPresenterProvider',
-        isAutoDispose: true,
+        name: r'pageNavigationControllerProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
+        isAutoDispose: true,
       );
 
+  PageNavigationControllerProvider call(Token token) =>
+      PageNavigationControllerProvider._(argument: token, from: this);
+
   @override
-  String debugGetCreateSourceHash() => _$pageNavigationPresenterHash();
+  String toString() => r'pageNavigationControllerProvider';
+}
+
+@ProviderFor(pendingNavigationController)
+const pendingNavigationControllerProvider =
+    PendingNavigationControllerFamily._();
+
+final class PendingNavigationControllerProvider
+    extends
+        $FunctionalProvider<
+          PendingNavigationController,
+          PendingNavigationController,
+          PendingNavigationController
+        >
+    with $Provider<PendingNavigationController> {
+  const PendingNavigationControllerProvider._({
+    required PendingNavigationControllerFamily super.from,
+    required Token super.argument,
+  }) : super(
+         retry: null,
+         name: r'pendingNavigationControllerProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$pendingNavigationControllerHash();
+
+  @override
+  String toString() {
+    return r'pendingNavigationControllerProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
-  $ProviderElement<PageNavigationPresenter> $createElement(
+  $ProviderElement<PendingNavigationController> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  PageNavigationPresenter create(Ref ref) {
-    return pageNavigationPresenter(ref);
+  PendingNavigationController create(Ref ref) {
+    final argument = this.argument as Token;
+    return pendingNavigationController(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(PageNavigationPresenter value) {
+  Override overrideWithValue(PendingNavigationController value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<PageNavigationPresenter>(value),
+      providerOverride: $SyncValueProvider<PendingNavigationController>(value),
     );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PendingNavigationControllerProvider &&
+        other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
   }
 }
 
-String _$pageNavigationPresenterHash() =>
-    r'b2b9ed0174396d6cd31a79b284e2eb0b62a93a6b';
+String _$pendingNavigationControllerHash() =>
+    r'db7f827c7d89e23967f0c4472a59f12d19c52081';
 
-@ProviderFor(navigatePageUseCase)
-const navigatePageUseCaseProvider = NavigatePageUseCaseProvider._();
-
-final class NavigatePageUseCaseProvider
-    extends
-        $FunctionalProvider<
-          NavigatePageUseCase,
-          NavigatePageUseCase,
-          NavigatePageUseCase
-        >
-    with $Provider<NavigatePageUseCase> {
-  const NavigatePageUseCaseProvider._()
+final class PendingNavigationControllerFamily extends $Family
+    with $FunctionalFamilyOverride<PendingNavigationController, Token> {
+  const PendingNavigationControllerFamily._()
     : super(
-        from: null,
-        argument: null,
         retry: null,
-        name: r'navigatePageUseCaseProvider',
-        isAutoDispose: true,
+        name: r'pendingNavigationControllerProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
+        isAutoDispose: true,
       );
 
-  @override
-  String debugGetCreateSourceHash() => _$navigatePageUseCaseHash();
-
-  @$internal
-  @override
-  $ProviderElement<NavigatePageUseCase> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  PendingNavigationControllerProvider call(Token token) =>
+      PendingNavigationControllerProvider._(argument: token, from: this);
 
   @override
-  NavigatePageUseCase create(Ref ref) {
-    return navigatePageUseCase(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(NavigatePageUseCase value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<NavigatePageUseCase>(value),
-    );
-  }
+  String toString() => r'pendingNavigationControllerProvider';
 }
-
-String _$navigatePageUseCaseHash() =>
-    r'd8b080ebef22feaebef06bedb1cd4e5c497e6999';
