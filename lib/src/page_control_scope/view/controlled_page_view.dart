@@ -19,7 +19,7 @@ abstract class ControlledPage extends ConsumerWidget {
 /// [ControlledPageView] で表示される [ControlledPage] の固定長リスト
 class ControlledPageList extends FixedList<ControlledPage> {
   ControlledPageList(List<ControlledPage> pageList)
-    : super.fromIterable(pageList.length, pageList);
+      : super.fromIterable(pageList.length, pageList);
 
   ControlledPageList._copy(super.list) : super.copy();
 
@@ -77,6 +77,37 @@ class ControlledPageView extends HookConsumerWidget {
     );
   }
 }
+
+// class ControlledPageViewScope extends HookConsumerWidget {
+//   const ControlledPageViewScope({
+//     super.key,
+//     required this.child,
+//     required this.scopeToken,
+//   });
+//
+//   final Widget child;
+//
+//   /// 対象スコープの [Token]
+//   final Token scopeToken;
+//
+//   /// 確認を有効にするかどうか
+//   final bool isAlertValid;
+//
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//
+//
+//     return AlertUnsavedScope.extendPopDef(
+//       child: child,
+//       scopeToken: scopeToken,
+//       isAlertValid: isAlertValid,
+//       extendedPop: (_){
+//         ref.read(pageNavigationControllerProvider).navigateTo();
+//       },
+//     );
+//   }
+// }
+
 
 // /// ページ変更時に確認を挟む [ControlledPageView]
 // class GuardedPageView extends ControlledPageView {

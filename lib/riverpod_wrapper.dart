@@ -66,6 +66,15 @@ export 'package:riverpod_wrapper/src/page_control_scope/presentation/controller/
 export 'package:riverpod_wrapper/src/page_control_scope/presentation/view_model/page_index_view_model.dart';
 // endregion
 
+// region extended_pop_scope
+// di
+export 'package:riverpod_wrapper/src/di/extended_pop_scope_providers/extended_pop_scope_providers.dart';
+// view
+export 'package:riverpod_wrapper/src/extended_pop_scope/view/extended_pop_scope.dart';
+// presentation
+export 'package:riverpod_wrapper/src/extended_pop_scope/presentation/controller/pop_scope_focus_controller.dart';
+// endregion
+
 // region key_holder
 export 'package:riverpod_wrapper/src/key_holder/auto_integer_key_holder.dart';
 export 'package:riverpod_wrapper/src/key_holder/explicit_key_holder.dart';
