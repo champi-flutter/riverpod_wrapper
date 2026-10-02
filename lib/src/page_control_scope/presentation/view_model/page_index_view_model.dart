@@ -8,11 +8,11 @@ part 'page_index_view_model.g.dart';
 @riverpod
 class PageIndexViewModel extends _$PageIndexViewModel {
   @override
-  PageIndexState build(Token token) => PageIndexState(currentIndex: 0, pendingIndex: 0,);
+  PageIndexState build(Token token) => PageIndexState(currentIndex: 0, pendingIndex: null,);
 
   void update(int targetIndex){
-    if(state.currentIndex != targetIndex){
-      state = state.copyWith(currentIndex: targetIndex);
+    if(state.currentIndex != targetIndex || state.pendingIndex != null){
+      state = state.copyWith(currentIndex: targetIndex, pendingIndex: null);
     }
   }
 
@@ -26,6 +26,12 @@ class PageIndexViewModel extends _$PageIndexViewModel {
     final int? targetIndex = state.pendingIndex;
     if (targetIndex != null && targetIndex != state.currentIndex) {
       state = state.copyWith(currentIndex: targetIndex, pendingIndex: null);
+    }
+  }
+
+  void cancel(){
+    if(state.pendingIndex != null){
+      state = state.copyWith(pendingIndex: null);
     }
   }
 }

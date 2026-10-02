@@ -30,4 +30,9 @@ class PageNavigationControllerImpl implements PageNavigationController, PendingN
   void approveNavigation() {
     _pageIndexViewModel.apply();
   }
+
+  @override
+  void cancelNavigation() {
+    _pageIndexViewModel.cancel();
+  }
 }
