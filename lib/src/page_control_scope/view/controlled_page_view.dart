@@ -17,14 +17,16 @@ abstract class ControlledPage extends ConsumerWidget {
 }
 
 /// [ControlledPageView] で表示される [ControlledPage] の固定長リスト
-class ControlledPageList extends FixedList<ControlledPage> {
-  ControlledPageList(List<ControlledPage> pageList)
+class ControlledPageList<PageType extends ControlledPage>
+    extends FixedList<PageType> {
+  ControlledPageList(List<PageType> pageList)
     : super.fromIterable(pageList.length, pageList);
 
   ControlledPageList._copy(super.list) : super.copy();
 
   @override
-  ControlledPageList get deepCopy => ControlledPageList._copy(toEntryList());
+  ControlledPageList<PageType> get deepCopy =>
+      ControlledPageList._copy(toEntryList());
 }
 
 /// 外部の操作によりページを変更する PageView
