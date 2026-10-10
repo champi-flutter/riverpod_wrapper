@@ -21,10 +21,24 @@ abstract class ControlledPage extends ConsumerWidget {
 
 /// ドメイン層で定義されたページの key とページクラス（[ControlledPage] を継承）を
 /// 紐づける Map
-abstract class PageMap<PageType extends ControlledPage>
-    extends MapBase<String, PageType> {
-  @override
-  PageType operator [](Object? key);
+class PageMap<PageType extends ControlledPage> {
+  PageMap(Map<PageKey, PageType> map) : _map = Map.unmodifiable(map);
+
+  final Map<PageKey, PageType> _map;
+
+  /// キーを指定してページを取得する（見つからない場合は例外、または非null）
+  PageType operator [](PageKey key) {
+    final page = _map[key];
+    if (page == null) {
+      throw ArgumentError(
+        "[PageMap] 指定された key (${key.key}) に対応するページが存在しません。",
+      );
+    }
+    return page;
+  }
+
+  /// 指定 [PageKey] が含まれているかどうか
+  bool containsKey(PageKey key) => _map.containsKey(key);
 }
 
 /// [ControlledPageView] で表示される [ControlledPage] の固定長リスト
@@ -42,7 +56,7 @@ class ControlledPageList<PageType extends ControlledPage>
     required PageConfig pageConfig,
     required PageMap<PageType> pageMap,
   }) : super.fill(pageConfig.numberOfPages, (int index) {
-         final String pageKey = pageConfig.keyList[index].value.key;
+         final PageKey pageKey = pageConfig.keyList[index].value;
          return pageMap[pageKey];
        });
 
