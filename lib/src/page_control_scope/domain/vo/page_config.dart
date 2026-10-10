@@ -3,9 +3,14 @@
 import 'package:custom_core_types/custom_core_types.dart';
 import 'package:riverpod_wrapper/src/page_control_scope/domain/vo/page_key.dart';
 
+/// [PageKey] とインデックスを紐づける固定長リストクラス
+///
+/// `List<PageKey>` を当てはめる。
 class PageKeyList extends FixedList<PageKey>{
-  
-  PageKeyList(super.length, super.iterable): super.fromIterable();
+
+  PageKeyList(List<PageKey> keyList): super.fromIterable(
+    keyList.length, keyList,
+  );
   
   PageKeyList._copy(super.list): super.copy();
   
