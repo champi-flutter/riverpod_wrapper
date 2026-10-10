@@ -1,8 +1,11 @@
+import 'dart:collection';
+
 import 'package:custom_core_types/custom_core_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
+import 'package:riverpod_wrapper/src/page_control_scope/domain/vo/page_config.dart';
 import 'package:riverpod_wrapper/src/page_control_scope/presentation/view_state/page_index_state.dart';
 
 abstract class ControlledPage extends ConsumerWidget {
@@ -16,11 +19,32 @@ abstract class ControlledPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref);
 }
 
+/// ドメイン層で定義されたページの key とページクラス（[ControlledPage] を継承）を
+/// 紐づける Map
+abstract class PageMap<PageType extends ControlledPage>
+    extends MapBase<String, PageType> {
+  @override
+  PageType operator [](Object? key);
+}
+
 /// [ControlledPageView] で表示される [ControlledPage] の固定長リスト
 class ControlledPageList<PageType extends ControlledPage>
     extends FixedList<PageType> {
   ControlledPageList(List<PageType> pageList)
     : super.fromIterable(pageList.length, pageList);
+
+  /// ドメイン層で定義された key （String）を元に、ページのリストを作るコンストラクタ
+  ///
+  ///  - [pageKeyList]: ドメイン層で定義されるページの key のリスト
+  ///  - [pageMap]: [PageMap] を継承した、ページの key とページクラス
+  ///  （[ControlledPage] を継承）を紐づける Map
+  ControlledPageList.fromPageConfig({
+    required PageConfig pageConfig,
+    required PageMap<PageType> pageMap,
+  }) : super.fill(pageConfig.numberOfPages, (int index) {
+         final String pageKey = pageConfig.keyList[index].value.key;
+         return pageMap[pageKey];
+       });
 
   ControlledPageList._copy(super.list) : super.copy();
 
