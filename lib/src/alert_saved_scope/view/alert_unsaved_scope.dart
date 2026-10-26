@@ -53,7 +53,7 @@ class AlertUnsavedScope extends ConsumerWidget {
     if(_extendedPop != null){
       return ExtendedPopScope(
         child: child,
-        willPopWithAny: !isAlertValid,
+        willPopWithAny: !isAlertValid || !isEdited,
         onWillPop: (BuildContext context)=>context.confirmToDiscard(),
         onPoppedExplicitly: onDiscarded,
         pop: _extendedPop,
@@ -61,7 +61,7 @@ class AlertUnsavedScope extends ConsumerWidget {
       );
     }
     return PopScope(
-      canPop: !isAlertValid,
+      canPop: !isAlertValid || !isEdited,
       onPopInvokedWithResult: (bool didPop, _) async {
         if (didPop) return;
         // 編集されていた場合は、ダイアログで確認を促す
