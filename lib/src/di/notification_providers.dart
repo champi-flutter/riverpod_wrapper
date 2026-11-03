@@ -22,7 +22,7 @@ part 'notification_providers.g.dart';
 ///
 @riverpod
 NotificationService notificationService(Ref ref) => NotificationServiceImpl(
-  notificationCacheHandler: ref.watch(notificationCacheHandlerProvider),
+  notificationRepository: ref.watch(notificationRepositoryProvider),
 );
 
 /// 通知のストリームを管理するクラス

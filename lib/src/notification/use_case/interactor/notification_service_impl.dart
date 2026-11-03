@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
-import 'package:riverpod_wrapper/src/notification/infrastructure/gateway/driver_interface/cache_handler_interface/notification_cache_handler.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/infra_interface/notification_repository.dart';
 
 /// 通知機能管理クラス
 class NotificationServiceImpl implements NotificationService{
   NotificationServiceImpl({
-    required NotificationCacheHandler notificationCacheHandler,
-  }) : _cacheHandler = notificationCacheHandler;
+    required NotificationRepository notificationRepository,
+  }) : _repository = notificationRepository;
 
   // todo 依存先
   /// キャッシュハンドラのインスタンス
-  final NotificationCacheHandler _cacheHandler;
+  final NotificationRepository _repository;
 
   /// 内部システムから通知を送信するメソッド
   @override
@@ -27,7 +27,7 @@ class NotificationServiceImpl implements NotificationService{
     notification: notification,
     );
     // キャッシュに通知を追加する
-    _cacheHandler.add(notifiedInfo);
+    _repository.send(notifiedInfo);
     _print("通知リスナーが発火");
   }
 }

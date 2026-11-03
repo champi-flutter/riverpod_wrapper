@@ -62,7 +62,7 @@ final class NotificationServiceProvider
 }
 
 String _$notificationServiceHash() =>
-    r'392328f0334b398758035edc21e4d7585bb39a07';
+    r'1f6aa264554aa79d5e3048693a0aedb02f15d3e1';
 
 /// 通知のストリームを管理するクラス
 
