@@ -11,7 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
 import 'package:riverpod_wrapper/src/notification/view_model/notification_view_model.dart';
 
-/// 2026/04/01 追加: Stateクラスから送られてきた何らかの通知を画面で表示するラッパークラス。
+/// 通知を画面で表示するラッパークラス。
 class NotificationView extends HookConsumerWidget {
   final Widget child;
 
@@ -22,6 +22,12 @@ class NotificationView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
+    // 通知バーが閉じられたことを通知するコールバック
+    void onClosed(){
+      ref.read(notificationControllerProvider).notifyCompleted();
+    }
+
+    // NotificationViewModel の state が更新されるたびに、通知を表示する
     ref.listen<Notified?>(notificationViewModelProvider, (previous, next){
       if (next != null){
         // 現在の描画を待ってから通知表示メソッド（context.showNotification）を呼び出す
@@ -46,6 +52,7 @@ class NotificationView extends HookConsumerWidget {
                   layer: layer,
                   isError: false,
                   toastType: ToastType.bottom,
+                  onClosed: onClosed,
                 );
 
               case NotificationType.test:
@@ -65,6 +72,7 @@ class NotificationView extends HookConsumerWidget {
                   layer: layer,
                   isError: false,
                   toastType: ToastType.bottom,
+                  onClosed: onClosed,
                 );
 
               case NotificationType.error:
@@ -84,6 +92,7 @@ class NotificationView extends HookConsumerWidget {
                   layer: layer,
                   isError: true,
                   toastType: ToastType.bottom,
+                  onClosed: onClosed,
                 );
 
               case NotificationType.success:
@@ -93,6 +102,7 @@ class NotificationView extends HookConsumerWidget {
                   duration: const Duration(seconds: 3),
                   isError: false,
                   toastType: ToastType.top,
+                  onClosed: onClosed,
                 );
             }
           }
@@ -118,6 +128,7 @@ extension NotificationExtensions on BuildContext {
     // 2026/05/19 追加:
     required bool isError,
     required ToastType toastType,
+    required VoidCallback? onClosed,
   })
   // 折りたたみ用
   async {
@@ -127,6 +138,7 @@ extension NotificationExtensions on BuildContext {
       ToastType.bottom => 1,
     };
     await showGeneralDialog(
+      // region showGeneralDialog
       context: this,
       // 背景（バリア）部分をタップした時に、ダイアログを閉じる
       barrierDismissible: true,
@@ -183,7 +195,9 @@ extension NotificationExtensions on BuildContext {
             );
         }
       },
+      // endregion
     );
+    onClosed?.call();
   }
 }
 

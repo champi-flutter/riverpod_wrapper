@@ -274,7 +274,7 @@ final class NotifyCompletedUseCaseProvider
 }
 
 String _$notifyCompletedUseCaseHash() =>
-    r'1b12c6f0779147cbbf00a0ac4cc6da4e2a94e154';
+    r'bac20cd81fa02446ac2c4c240b09ea3dd0a48a9d';
 
 /// 通知完了報告クラス
 
@@ -385,3 +385,56 @@ final class StartListeningNotificationUseCaseProvider
 
 String _$startListeningNotificationUseCaseHash() =>
     r'c219ef97977d8281f594d188cd4cdbb474c9b108';
+
+/// 通知関連のリポジトリ
+
+@ProviderFor(notificationRepository)
+const notificationRepositoryProvider = NotificationRepositoryProvider._();
+
+/// 通知関連のリポジトリ
+
+final class NotificationRepositoryProvider
+    extends
+        $FunctionalProvider<
+          NotificationRepository,
+          NotificationRepository,
+          NotificationRepository
+        >
+    with $Provider<NotificationRepository> {
+  /// 通知関連のリポジトリ
+  const NotificationRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'notificationRepositoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$notificationRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<NotificationRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  NotificationRepository create(Ref ref) {
+    return notificationRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(NotificationRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<NotificationRepository>(value),
+    );
+  }
+}
+
+String _$notificationRepositoryHash() =>
+    r'aeefe7316b397c08039c5a3f78ba49aac810db29';

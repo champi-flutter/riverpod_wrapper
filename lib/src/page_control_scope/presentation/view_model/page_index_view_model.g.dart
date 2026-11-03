@@ -59,7 +59,7 @@ final class PageIndexViewModelProvider
 }
 
 String _$pageIndexViewModelHash() =>
-    r'4bf1e189379df9a4837ea45f1be461f0e9c28223';
+    r'a029e6977d6e9979420210e96490f79651a4783b';
 
 final class PageIndexViewModelFamily extends $Family
     with

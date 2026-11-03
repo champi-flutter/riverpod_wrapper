@@ -1,5 +1,5 @@
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
-import 'package:riverpod_wrapper/src/notification/use_case/handler/stream_handler/notification_stream_handler.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/infra_interface/notification_stream_handler.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/input_boundary/start_listening_notification_use_case.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/output_boundary/notification_presenter.dart';
 

@@ -1,9 +1,11 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_wrapper/riverpod_wrapper.dart';
-import 'package:riverpod_wrapper/src/notification/infrastructure/driver/cache_handler/notification_cache_handler.dart';
+import 'package:riverpod_wrapper/src/notification/infrastructure/gateway/driver_interface/cache_handler_interface/notification_cache_handler.dart';
 import 'package:riverpod_wrapper/src/notification/infrastructure/driver/cache_handler/notification_cache_handler_impl.dart';
-import 'package:riverpod_wrapper/src/notification/use_case/handler/stream_handler/notification_stream_handler.dart';
-import 'package:riverpod_wrapper/src/notification/use_case/handler/stream_handler/notification_stream_handler_impl.dart';
+import 'package:riverpod_wrapper/src/notification/infrastructure/gateway/repository/notification_repository_impl.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/infra_interface/notification_repository.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/infra_interface/notification_stream_handler.dart';
+import 'package:riverpod_wrapper/src/notification/infrastructure/gateway/stream/notification_stream_handler_impl.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/input_boundary/notify_completed_use_case.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/input_boundary/start_listening_notification_use_case.dart';
 import 'package:riverpod_wrapper/src/notification/use_case/interactor/notification_service_impl.dart';
@@ -51,7 +53,7 @@ NotificationPresenter notificationPresenter(Ref ref) =>
 @riverpod
 NotifyCompletedUseCase notifyCompletedUseCase(Ref ref) =>
     NotifyCompletedInteractor(
-      notificationCacheHandler: ref.watch(notificationCacheHandlerProvider),
+      notificationRepository: ref.watch(notificationRepositoryProvider),
     );
 
 /// 通知完了報告クラス
@@ -73,3 +75,9 @@ StartListeningNotificationUseCase startListeningNotificationUseCase(Ref ref) =>
 
 /// 通知キャッシュ管理ツール
 final _notificationCacheKeyHolderProvider = autoIntegerKeyHolder();
+
+/// 通知関連のリポジトリ
+@riverpod
+NotificationRepository notificationRepository(Ref ref) => NotificationRepositoryImpl(
+  notificationCacheHandler: ref.watch(notificationCacheHandlerProvider),
+);

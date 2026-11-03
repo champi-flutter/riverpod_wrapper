@@ -15,6 +15,7 @@ class NotificationController {
   final NotificationViewModel _viewModel;
 
   /// 通知が閉じられたことを伝える
+  // todo 未実装（2026/11/03）＞＞
   void notifyCompleted() {
     // VM の state を null にする
     _viewModel.clear();

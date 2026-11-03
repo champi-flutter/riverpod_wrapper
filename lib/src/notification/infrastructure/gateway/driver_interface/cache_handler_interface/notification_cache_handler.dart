@@ -18,5 +18,5 @@ abstract class NotificationCacheHandler
   Future<void> add(Notified notified);
 
   /// [output] を外から呼ぶ
-  Future<void> callOutput();
+  Future<void> callNextOutput();
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_wrapper/src/notification/type_definition/notification_typedef.dart';
-import 'package:riverpod_wrapper/src/notification/use_case/handler/stream_handler/notification_stream_handler.dart';
+import 'package:riverpod_wrapper/src/notification/use_case/infra_interface/notification_stream_handler.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// 通知機能管理クラス
