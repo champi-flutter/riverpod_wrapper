@@ -168,7 +168,7 @@ final class NotificationCacheHandlerProvider
 }
 
 String _$notificationCacheHandlerHash() =>
-    r'9b93c271ff535148ae469e3ba4d98535235e292c';
+    r'3f8ceb07dea5ff7a3a93f23d53dd17e08497161b';
 
 /// 通知反映クラス
 

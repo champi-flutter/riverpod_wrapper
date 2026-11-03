@@ -10,29 +10,14 @@ class NotificationCacheHandlerImpl
   NotificationCacheHandlerImpl({
     required NotificationStreamHandler notificationStreamHandler,
     required AutoIntegerKeyHolder notificationCacheKeyHolder,
-    required NotificationService notificationService,
   }) : _streamHandler = notificationStreamHandler,
        _cacheKeyHolder = notificationCacheKeyHolder,
-       _notificator = notificationService,
        _keyOnOutput = null,
        super(NotificationCache());
 
   final NotificationStreamHandler _streamHandler;
 
   final AutoIntegerKeyHolder _cacheKeyHolder;
-
-  /// 通知呼び出し口
-  ///
-  /// 処理フローとは関係ない。
-  final NotificationService _notificator;
-
-  /// エラーを通知
-  void _notifyError(String e) {
-    _notificator.notifyInfo(
-      type: NotificationType.error,
-      notification: "[NotificationCacheHandler] $e",
-    );
-  }
 
   /// 通知の追加処理を実装
   @override
@@ -61,7 +46,7 @@ class NotificationCacheHandlerImpl
         _keyOnOutput = null;
       }
     } catch (e, st) {
-      _notifyError("$e\n$st");
+      throw Exception("[NotificationCacheHandler] $e\n$st");
     } finally {
       // 溜まっている通知がある場合はストリームに流す
       await output(cache.base);

@@ -38,7 +38,6 @@ NotificationCacheHandler notificationCacheHandler(Ref ref) =>
       notificationCacheKeyHolder: ref.watch(
         _notificationCacheKeyHolderProvider,
       ),
-      notificationService: ref.watch(notificationServiceProvider),
     );
 
 /// 通知反映クラス
