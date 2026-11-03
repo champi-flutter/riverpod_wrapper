@@ -190,10 +190,10 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "0391821ee93433189dbffd21340c52e2314d9c15"
+      resolved-ref: b047a2394888a69f86dd9b101c4d27be39a8e375
       url: "https://github.com/champi-flutter/custom_core_types.git"
     source: git
-    version: "1.2.5+16"
+    version: "1.2.3+17"
   custom_lint_core:
     dependency: transitive
     description:
@@ -215,10 +215,10 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "48495704b086e4873f304794871e52d639d7234e"
+      resolved-ref: "47a85efa8015ed8f78c2d64105166799b52c488c"
       url: "https://github.com/champi-flutter/custom_widgets.git"
     source: git
-    version: "1.0.4+5"
+    version: "1.0.5+6"
   dart_style:
     dependency: transitive
     description:
