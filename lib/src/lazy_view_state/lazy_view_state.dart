@@ -43,22 +43,22 @@ class LazyViewState<Data> {
 class OnetimeLazyViewState<Data> extends LazyViewState<Data> {
   /// Notifier の build でこの型（[OnetimeLazyViewState.placeholder]）の
   /// ViewState が返された後に起動する、初期化処理を呼ぶコールバック。
-  final void Function()? onBuilt;
+  void Function()? initState;
 
   /// 表示値として有効なデータを入れるコンストラクタ
-  const OnetimeLazyViewState.data(super.data)
-    : onBuilt = null,
+  OnetimeLazyViewState.data(super.data)
+    : initState = null,
       super.data();
 
   /// データ未受信時の仮データを設定するコンストラクタ
-  const OnetimeLazyViewState.placeholder(
+  OnetimeLazyViewState.placeholder(
     super.data, {
-    required this.onBuilt,
+    required this.initState,
   }) : super.placeholder();
 
   /// エラーや例外が発生した情報を入れるコンストラクタ
-  const OnetimeLazyViewState.error(super.data, {super.errorMsg = ""})
-    : onBuilt = null,
+  OnetimeLazyViewState.error(super.data, {super.errorMsg = ""})
+    : initState = null,
         super.error();
 
   /// データの受信状態に応じたアクションを設定する
@@ -67,16 +67,16 @@ class OnetimeLazyViewState<Data> extends LazyViewState<Data> {
     required R Function(Data data) onReceived,
     required R Function(Data placeholder) onLoading,
     required R Function(Data placeholder, String errorMsg) onError,
-  }) {
-    switch (_lazyStatus) {
-      case _LazyStatus.received:
-        return onReceived(data);
-      case _LazyStatus.loading:
-        // loading 状態で呼ばれた際に、onBuilt を起動する
-        onBuilt?.call();
-        return onLoading(data);
-      case _LazyStatus.error:
-        return onError(data, errorMsg);
-    }
-  }
+  }) => super.when(
+    onReceived: onReceived,
+    onLoading: (placeholder) {
+
+      final callback = initState;
+      initState = null;
+
+      callback?.call();
+      return onLoading(placeholder);
+    },
+    onError: onError,
+  );
 }
